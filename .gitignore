@@ -1,4 +1,4 @@
 .DS_Store
-data/topic/*
+data/*
 process/.pytest_cache
 process/__pycache__

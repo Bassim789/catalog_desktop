@@ -1,5 +1,4 @@
 from IO_file import IO_file
-
 io_file = IO_file()
 
 class Vars_info():

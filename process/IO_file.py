@@ -19,6 +19,12 @@ class IO_file():
   def file_exists(self, path):
     return os.path.exists(path)
 
+  def is_missing_files(self, files):
+    for file in files:
+      if not self.file_exists(file):
+        return True
+    return False
+
   def get_last_modif_datetime(self, path):
     return self.timestamp_to_datetime(int(os.path.getmtime(path)))
 
@@ -36,6 +42,9 @@ class IO_file():
       return pandas.DataFrame(dict_data, columns=columns)
     else:
       return pandas.DataFrame(dict_data)
+
+  def concat(self, dataframes):
+    return pandas.concat(dataframes)
 
   def save(self, path, dataframe, output='excel'):
     if output == 'excel':

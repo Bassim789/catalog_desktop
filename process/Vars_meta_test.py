@@ -1,22 +1,22 @@
-import pandas
-import json
 from Vars_meta import Vars_meta
+from IO_file import IO_file
+io_file = IO_file()
 
 def test_clean_num():
 
-  def get_clean_num(num):
-    return Vars_meta.clean_num(pandas.DataFrame([num])[0][0])
+  def clean(num):
+    return Vars_meta.clean_num(io_file.dict_to_dataframe([num])[0][0])
 
-  assert get_clean_num('ok') == 'ok'
-  assert get_clean_num('') == ''
-  assert get_clean_num(-3) == -3
-  assert get_clean_num(0) == 0
-  assert get_clean_num(9) == 9
-  assert get_clean_num(123456) == 123456
-  assert get_clean_num(12.4) == 12
-  assert get_clean_num(1652.42345) == 1652
-  assert get_clean_num(2.42345) == 2.423
-  assert get_clean_num(0.42) == 0.42
+  assert clean('ok') == 'ok'
+  assert clean('') == ''
+  assert clean(-3) == -3
+  assert clean(0) == 0
+  assert clean(9) == 9
+  assert clean(123456) == 123456
+  assert clean(12.4) == 12
+  assert clean(1652.42345) == 1652
+  assert clean(2.42345) == 2.423
+  assert clean(0.42) == 0.42
 
 def test_percent():
   assert Vars_meta.percent(140, 200) == 70

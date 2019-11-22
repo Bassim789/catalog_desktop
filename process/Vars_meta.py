@@ -1,12 +1,12 @@
-import pandas
 from IO_file import IO_file
-
 io_file = IO_file()
 
 class Vars_meta():
 
-  def __init__(self):
-    pass
+  def __init__(self, version):
+    self.version_name = version.name
+    self.version_data_date = version.data_date
+    self.is_current_version = version.is_current
 
   def get_vars_data(self, vars_info, source_data):
     vars_data = []
@@ -21,7 +21,9 @@ class Vars_meta():
 
     dataframe = io_file.dict_to_dataframe(vars_data)
     dataframe['datetime'] = io_file.datetime_now()
-    dataframe['is_current'] = 'true'
+    dataframe['is_current'] = self.is_current_version
+    dataframe['version_name'] = self.version_name
+    dataframe['version_data_date'] = self.version_data_date
     self.data = dataframe
 
   def init_var_data(self, var):
@@ -55,9 +57,12 @@ class Vars_meta():
 
   def save_historic_variables(self, path):
     if io_file.file_exists(path):
-      vars_meta_historic = io_file.load(path)
-      vars_meta_historic['is_current'] = ''
-      vars_meta = pandas.concat([vars_meta_historic, self.data])
+      historic = io_file.load(path)
+      condition = historic.version_name == self.version_name
+      historic = historic.drop(historic[condition].index)
+      if self.is_current_version:
+        historic.is_current = False
+      vars_meta = io_file.concat([historic, self.data])
     else:
       vars_meta = self.data
     io_file.save(path, vars_meta)
