@@ -1,3 +1,4 @@
+from Table_info import Table_info
 from Versions import Versions
 from Version import Version
 from Vars_info import Vars_info 
@@ -14,6 +15,7 @@ class Data_loader():
   def set_path(self, path_name):
     self.path_name = path_name
     self.path = self.catalog_data_path + path_name
+    self.table_info_path = self.path + 'table.xlsx'
     self.versions_path = self.path + 'versions.xlsx'
     self.var_info_path = self.path + 'variable.xlsx'
     self.historic_variables_path = self.path + 'historic_variables.xlsx'
@@ -31,19 +33,29 @@ class Data_loader():
     io_file.remove_file(self.current_variables_path)
 
   def load_data(self):
-    versions = Versions(self.versions_path)
-    versions.load()
-    versions.data = versions.data.sort_values('data_date', ascending=False)
 
+    versions = Versions(self.versions_path)
+    versions.load_data()
+    versions.data = versions.data.sort_values('data_date', ascending=False)
     versions.is_changed = False
     versions.data_updated = []
+
+    table_info = Table_info(self.table_info_path, self.path_name)
+    table_info.load_data()
+    if not table_info.is_loaded():
+      table_info.create(versions)
+
+    if(table_info.db_or_table_name_changed()):
+      table_info.update_table_and_db_name(self.all_current_variables_path)
+      table_info.create(versions)
+
     nb_iter = -1
     for i, version in versions.data.iterrows():
       nb_iter += 1
 
       versions.data_updated.append(version)
       version = Version(version)
-      version.load()
+      version.load_data()
       version.is_current = nb_iter == 0
 
       if not version.is_loaded():

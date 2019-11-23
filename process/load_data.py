@@ -18,4 +18,4 @@ for versions_file in Path(data_path).rglob('versions.xlsx'):
     print('updating', path_name)
     data_loader.update_main_data()
 
-webbrowser.open('file://' + catalog_path + 'web/index.html')
+#webbrowser.open('file://' + catalog_path + 'web/index.html')
