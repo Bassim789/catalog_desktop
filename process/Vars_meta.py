@@ -1,3 +1,4 @@
+from utils import Number
 from IO_file import IO_file
 io_file = IO_file()
 
@@ -36,15 +37,15 @@ class Vars_meta():
       'nb_distinct': int(var.nunique())
     }
     data['nb_duplicate'] = int(data['nb_row'] - data['nb_distinct'])
-    data['percent_duplicate'] = self.percent(data['nb_duplicate'], data['nb_row'])
-    data['percent_distinct'] = self.percent(data['nb_distinct'], data['nb_row'])
+    data['percent_duplicate'] = Number.percent(data['nb_duplicate'], data['nb_row'])
+    data['percent_distinct'] = Number.percent(data['nb_distinct'], data['nb_row'])
     return data
 
   def add_number_stat(self, data, var):
-    data['min'] = self.clean_num(var.min())
-    data['mean'] = self.clean_num(var.mean())
-    data['median'] = self.clean_num(var.median())
-    data['max'] = self.clean_num(var.max())
+    data['min'] = Number.clean_num(var.min())
+    data['mean'] = Number.clean_num(var.mean())
+    data['median'] = Number.clean_num(var.median())
+    data['max'] = Number.clean_num(var.max())
     return data
 
   def add_vars_info(self, data, vars_info):
@@ -72,18 +73,3 @@ class Vars_meta():
   def save_current_variables(self, path):
     io_file.save(path, self.data)
     io_file.copy_excel_to_js(path, 'current_variables')
-
-  @staticmethod
-  def percent(value, total):
-    if total <= 0:
-      return False
-    return round(value / total * 100, 1)
-
-  @staticmethod
-  def clean_num(num):
-    if isinstance(num, str):
-      return num
-    num = num.round(3)
-    if num > 10:
-      num = int(num.astype(int))
-    return num
