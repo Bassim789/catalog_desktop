@@ -19,6 +19,10 @@ class IO_file():
   def file_exists(self, path):
     return os.path.exists(path)
 
+  def remove_file(self, path):
+    if os.path.exists(path):
+      os.remove(path)
+
   def is_missing_files(self, files):
     for file in files:
       if not self.file_exists(file):
@@ -62,7 +66,7 @@ class IO_file():
     self.prepend_line(path, 'const variable_data = ')
 
   def save_to_json(self, path, dataframe):
-    data = dataframe.to_dict('index')
+    data = dataframe.fillna('').to_dict('index')
     with open(path, 'w') as file:
       json.dump(data, file)
 

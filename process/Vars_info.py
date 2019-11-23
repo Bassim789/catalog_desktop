@@ -13,7 +13,7 @@ class Vars_info():
       data = []
       for var_name_origin in version_data:
         var_data = version_data[var_name_origin]
-        data.append([var_name_origin, var_name_origin, var_data.dtype, 'new variable'])
+        data.append([var_name_origin, var_name_origin, var_data.dtype, ''])
     else:
       vars_info = io_file.load(self.path)
       dict_vars = self.get_dict_vars(vars_info, version_data)
@@ -44,7 +44,7 @@ class Vars_info():
       if var['from'] == 'source':
         var_name = var['source'].var_name_origin
         var_type = var['source'].dtype
-        description = 'new variable'
+        description = ''
       if var['from'] == 'info' or var['from'] == 'both':
         var_name = var['info']['var_name']
         var_type = var['info']['type']

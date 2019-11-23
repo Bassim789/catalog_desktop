@@ -1,13 +1,148 @@
+
+<template id="template_test">
+  {{#databases}}
+  <div style="width: 100%; display: inline-block;">
+    <div style="font-size: 20px; font-weight: bold; margin: 5px; display: inline-block; float: left;">
+      {{db_name}}
+    </div>
+    <div style="margin: 5px; display: inline-block; float: left; margin-top: 10px;">
+      {{nb_table}} tables | {{nb_var}} variables | {{nb_data}} données
+    </div>
+  </div>
+  <div style="margin-top: 20px;">
+    {{#tables}}
+    <div class="table_box">
+      <div style="width: 100%; display: inline-block;">
+        <div style="font-size: 16px; font-weight: bold; margin: 5px; display: inline-block; float: left;">
+          {{table_name}}
+        </div>
+        <div style="margin: 5px; display: inline-block; float: left; margin-top: 7px;">
+          {{nb_variable}} variables | {{nb_row}} lignes | {{nb_data}} données
+        </div>
+      </div>
+      <!-- {{#variables}} -->
+        <div class="variable_box">
+          <table class="variable_table">
+            <tr>
+              <th colspan="2">{{var_name}}</th>
+            </tr>
+            <tr>
+              <td colspan="2">
+                {{description}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                {{#type_number}}Nombre{{/type_number}} 
+                {{#type_text}}Texte{{/type_text}}
+              </td>
+              <td>
+                {{type}} ({{length}})
+              </td>
+            </tr>
+            <tr>
+              <td>{{nb_row}}</td>
+              <td>lignes</td>
+            </tr>
+            <tr>
+              <td>{{nb_distinct}}</td>
+              <td>distinct</td>
+            </tr>
+            <tr>
+              <td>{{nb_duplicate}}</td>
+              <td>duplicate</td>
+            </tr>
+            <!-- {{#type_number}} -->
+            <tr>
+              <td>{{min}}</td>
+              <td>min</td>
+            </tr>
+            <tr>
+              <td>{{mean}}</td>
+              <td>moyenne</td>
+            </tr>
+            <tr>
+              <td>{{median}}</td>
+              <td>medianne</td>
+            </tr>
+            <tr>
+              <td>{{max}}</td>
+              <td>max</td>
+            </tr>
+            <!-- {{/type_number}} -->
+          </table>
+        </div>
+      <!-- {{/variables}} -->
+      </div>
+    {{/tables}}
+  </div>
+  {{/databases}}
+</template>
+
 <!DOCTYPE html>
 <html>
 <head>
   <title>catalog</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="lib/mustache.min.js"></script>
+  <script src="lib/chosen/chosen.jquery.min.js"></script>
+  <link href="lib/chosen/chosen.min.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
 </head>
 <body>
-  test
+  <div style="display: none;">
+    <td><span class="nb_databases">...</span> databases</td>
+    <td><span class="nb_tables">...</span> tables</td>
+    <td><span class="nb_variables">...</span> variables</td>
+  </div>
+  <div style="text-align: center;">
+
+    <div id="select_db_box"></div>
+    <template id="select_db_template">
+      <select data-placeholder="Databases ({{nb_databases}})" 
+            class="chosen-select change_db_selected" style="min-width: 200px;">
+        <option></option>
+        {{#db}}
+          <option>{{db_clean_name}}</option> 
+        {{/db}}
+      </select>
+    </template>
+
+    <div id="select_table_box"></div>
+    <template id="select_table_template">
+      <select data-placeholder="Tables ({{nb_tables}})" 
+            class="chosen-select change_table_selected" style="min-width: 200px;">
+        <option></option>
+        {{#db}}
+          <optgroup label="{{db_clean_name}}">
+          {{#tables}}
+            <option>{{table_clean_name}}</option>
+          {{/tables}}
+          </optgroup>
+        {{/db}}
+      </select>
+    </template>
+
+    <div id="select_var_box"></div>
+    <template id="select_var_template">
+      <select data-placeholder="Variables ({{nb_variables}})" 
+            class="chosen-select change_var_selected" style="min-width: 200px;">
+        <option></option>
+        {{#db}}
+        {{#tables}}
+          <optgroup label="{{db_clean_name}}: {{table_clean_name}}" class="select_group">
+          {{#variables}}
+            <option value="{{clean_name}}">{{clean_name}}</option>
+          {{/variables}}
+          </optgroup>
+        {{/tables}}
+        {{/db}}
+      </select>
+    </template>
+  </div>
+
+  <div id="variables_list_box"></div>
 </body>
 <script src="../data/all_current_variables.js"></script>
-<script>
-console.log('all_current_variables', all_current_variables)
-</script>
+<script src="script.js"></script>
 </html>

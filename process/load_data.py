@@ -12,6 +12,7 @@ for versions_file in Path(data_path).rglob('versions.xlsx'):
   path_name = versions_file_path.split(data_path)[1]
   data_loader.set_path(path_name)
   print('checking', path_name)
+  #data_loader.clear_path()
   is_changed = data_loader.load_data()
   if is_changed:
     print('updating', path_name)

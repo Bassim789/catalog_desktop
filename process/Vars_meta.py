@@ -56,12 +56,13 @@ class Vars_meta():
     return data
 
   def save_historic_variables(self, path):
+    self.data = self.data.drop(columns=['description'])
     if io_file.file_exists(path):
       historic = io_file.load(path)
       condition = historic.version_name == self.version_name
       historic = historic.drop(historic[condition].index)
       if self.is_current_version:
-        historic.is_current = False
+        pass#historic.is_current = False
       vars_meta = io_file.concat([historic, self.data])
     else:
       vars_meta = self.data

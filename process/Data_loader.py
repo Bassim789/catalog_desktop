@@ -25,6 +25,11 @@ class Data_loader():
       self.current_variables_path
     ]
 
+  def clear_path(self):
+    io_file.remove_file(self.var_info_path)
+    io_file.remove_file(self.historic_variables_path)
+    io_file.remove_file(self.current_variables_path)
+
   def load_data(self):
     versions = Versions(self.versions_path)
     versions.load()
@@ -46,18 +51,24 @@ class Data_loader():
         continue
 
       version.filter_unnamed_cols()
-      version.set_last_modif_datetime()
+      version.set_last_modif_datetime(self.var_info_path)
 
-      if not version.is_update_to_do() and not io_file.is_missing_files(self.files): 
+      if not version.is_update_to_do() \
+        and not io_file.is_missing_files(self.files) \
+        and not version.is_vars_info_changed(self.var_info_path): 
         continue
-    
+      
+      print('updating_table', version.name)
+
       versions.is_changed = True
       versions.data_updated[nb_iter]['data_last_modif'] = version.data_last_modif
-      versions.data_updated[nb_iter]['timestamp_last_update'] = version.timestamp_last_update
+      versions.data_updated[nb_iter]['meta_last_modif'] = version.meta_last_modif
 
       vars_info = Vars_info(self.var_info_path)
       vars_info.update_data(version.data)
       vars_info.load_data()
+
+      versions.data_updated[nb_iter]['info_last_modif'] = io_file.get_last_modif_datetime(self.var_info_path)
 
       vars_meta = Vars_meta(version)
       vars_meta.get_vars_data(vars_info.data, version.data)
