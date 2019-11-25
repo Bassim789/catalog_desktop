@@ -6,7 +6,7 @@
       {{db_name}}
     </div>
     <div style="margin: 5px; display: inline-block; float: left; margin-top: 10px;">
-      {{nb_table}} tables | {{nb_var}} variables | {{nb_data}} données
+      {{nb_table}} tables | {{nb_variable}} variables | {{nb_data}} données
     </div>
   </div>
   <div style="margin-top: 20px;">
@@ -37,7 +37,7 @@
                 {{#type_text}}Texte{{/type_text}}
               </td>
               <td>
-                {{type}} ({{length}})
+                 ({{dtype}})
               </td>
             </tr>
             <tr>
@@ -90,16 +90,11 @@
   <link href="style.css" rel="stylesheet">
 </head>
 <body>
-  <div style="display: none;">
-    <td><span class="nb_databases">...</span> databases</td>
-    <td><span class="nb_tables">...</span> tables</td>
-    <td><span class="nb_variables">...</span> variables</td>
-  </div>
   <div style="text-align: center;">
 
     <div id="select_db_box"></div>
     <template id="select_db_template">
-      <select data-placeholder="Databases ({{nb_databases}})" 
+      <select data-placeholder="{{nb_database}} databases" 
             class="chosen-select change_db_selected" style="min-width: 200px;">
         <option></option>
         {{#db}}
@@ -110,13 +105,13 @@
 
     <div id="select_table_box"></div>
     <template id="select_table_template">
-      <select data-placeholder="Tables ({{nb_tables}})" 
+      <select data-placeholder="{{nb_table}} tables" 
             class="chosen-select change_table_selected" style="min-width: 200px;">
         <option></option>
         {{#db}}
           <optgroup label="{{db_clean_name}}">
           {{#tables}}
-            <option>{{table_clean_name}}</option>
+            <option>{{clean_name}}</option>
           {{/tables}}
           </optgroup>
         {{/db}}
@@ -125,7 +120,7 @@
 
     <div id="select_var_box"></div>
     <template id="select_var_template">
-      <select data-placeholder="Variables ({{nb_variables}})" 
+      <select data-placeholder="{{nb_variable}} variables" 
             class="chosen-select change_var_selected" style="min-width: 200px;">
         <option></option>
         {{#db}}
@@ -144,5 +139,8 @@
   <div id="variables_list_box"></div>
 </body>
 <script src="../data/all_current_variables.js"></script>
+<script src="Url_params.js"></script>
+<script src="utils.js"></script>
+<script src="Catalog.js"></script>
 <script src="script.js"></script>
 </html>
