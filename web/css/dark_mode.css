@@ -1,0 +1,13 @@
+
+.btn_dark_mode{
+  position: fixed;
+  top: 5px;
+  right: 5px;
+  background: #000;
+  cursor: pointer;
+  z-index: 2;
+}
+
+body.dark_mode{
+  background: #000;
+}

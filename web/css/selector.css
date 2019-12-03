@@ -1,0 +1,43 @@
+
+#selection_boxes_wrapper{
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  /*background: #fff;
+  border-bottom: 1px solid #ddd;*/
+}
+
+#selection_boxes{
+  display: inline-block;
+  margin: auto;
+  padding: 0 5px;
+  background: #fbfbfb;
+  border: 1px solid #ddd;
+  border-top: 0;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.select_group{
+  cursor: pointer !important;
+}
+
+#select_db_box,
+#select_table_box,
+#select_variable_box{
+  display: inline-block;
+  float: left;
+  width: auto;
+  margin: 10px 5px;
+}
+
+.chosen-select{
+  min-width: 200px;
+}
+
+.chosen-results{
+  text-align: left;
+}

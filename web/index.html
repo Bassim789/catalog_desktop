@@ -1,12 +1,12 @@
 
-<template id="template_test">
+<template id="template_main_listing">
   {{#databases}}
   <div style="width: 100%; display: inline-block;">
     <div style="font-size: 20px; font-weight: bold; margin: 5px; display: inline-block; float: left;">
       {{db_name}}
     </div>
     <div style="margin: 5px; display: inline-block; float: left; margin-top: 10px;">
-      {{nb_table}} tables | {{nb_variable}} variables | {{nb_data}} données
+      {{nb_table_clean}} tables | {{nb_variable_clean}} variables | {{nb_data_clean}} données
     </div>
   </div>
   <div style="margin-top: 20px;">
@@ -17,7 +17,7 @@
           {{table_name}}
         </div>
         <div style="margin: 5px; display: inline-block; float: left; margin-top: 7px;">
-          {{nb_variable}} variables | {{nb_row}} lignes | {{nb_data}} données
+          {{nb_variable_clean}} variables | {{nb_row_clean}} lignes | {{nb_data_clean}} données
         </div>
       </div>
       <!-- {{#variables}} -->
@@ -41,32 +41,32 @@
               </td>
             </tr>
             <tr>
-              <td>{{nb_row}}</td>
+              <td>{{nb_row_clean}}</td>
               <td>lignes</td>
             </tr>
             <tr>
-              <td>{{nb_distinct}}</td>
+              <td>{{nb_distinct_clean}}</td>
               <td>distinct</td>
             </tr>
             <tr>
-              <td>{{nb_duplicate}}</td>
+              <td>{{nb_duplicate_clean}}</td>
               <td>duplicate</td>
             </tr>
             <!-- {{#type_number}} -->
             <tr>
-              <td>{{min}}</td>
+              <td>{{min_clean}}</td>
               <td>min</td>
             </tr>
             <tr>
-              <td>{{mean}}</td>
+              <td>{{mean_clean}}</td>
               <td>moyenne</td>
             </tr>
             <tr>
-              <td>{{median}}</td>
+              <td>{{median_clean}}</td>
               <td>medianne</td>
             </tr>
             <tr>
-              <td>{{max}}</td>
+              <td>{{max_clean}}</td>
               <td>max</td>
             </tr>
             <!-- {{/type_number}} -->
@@ -83,64 +83,72 @@
 <html>
 <head>
   <title>catalog</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="lib/jquery.min.js"></script>
   <script src="lib/mustache.min.js"></script>
   <script src="lib/chosen/chosen.jquery.min.js"></script>
   <link href="lib/chosen/chosen.min.css" rel="stylesheet">
-  <link href="style.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+  <link href="css/selector.css" rel="stylesheet">
+  <link href="css/dark_mode.css" rel="stylesheet">
 </head>
 <body>
-  <div style="text-align: center;">
+  <script src="js/dark_mode.js"></script>
 
-    <div id="select_db_box"></div>
-    <template id="select_db_template">
-      <select data-placeholder="{{nb_database}} databases" 
-            class="chosen-select change_db_selected" style="min-width: 200px;">
-        <option></option>
-        {{#db}}
-          <option>{{db_clean_name}}</option> 
-        {{/db}}
-      </select>
-    </template>
-
-    <div id="select_table_box"></div>
-    <template id="select_table_template">
-      <select data-placeholder="{{nb_table}} tables" 
-            class="chosen-select change_table_selected" style="min-width: 200px;">
-        <option></option>
-        {{#db}}
-          <optgroup label="{{db_clean_name}}">
-          {{#tables}}
-            <option>{{clean_name}}</option>
-          {{/tables}}
-          </optgroup>
-        {{/db}}
-      </select>
-    </template>
-
-    <div id="select_var_box"></div>
-    <template id="select_var_template">
-      <select data-placeholder="{{nb_variable}} variables" 
-            class="chosen-select change_var_selected" style="min-width: 200px;">
-        <option></option>
-        {{#db}}
-        {{#tables}}
-          <optgroup label="{{db_clean_name}}: {{table_clean_name}}" class="select_group">
-          {{#variables}}
-            <option value="{{clean_name}}">{{clean_name}}</option>
-          {{/variables}}
-          </optgroup>
-        {{/tables}}
-        {{/db}}
-      </select>
-    </template>
+  <div class="btn_dark_mode">
+    dark mode
   </div>
 
-  <div id="variables_list_box"></div>
+  <div id="selection_boxes_wrapper">
+    <div id="selection_boxes">
+
+      <div id="select_db_box"></div>
+      <template id="select_db_template">
+        <select data-placeholder="{{nb_item_clean}} databases" class="chosen-select">
+          <option></option>
+          {{#db}}
+            <option value="{{db_clean_name}}">{{db_clean_name}}</option> 
+          {{/db}}
+        </select>
+      </template>
+
+      <div id="select_table_box"></div>
+      <template id="select_table_template">
+        <select data-placeholder="{{nb_item_clean}} tables" class="chosen-select">
+          <option></option>
+          {{#db}}
+            <optgroup label="{{db_clean_name}}">
+            {{#tables}}
+              <option value="{{db_clean_name}};{{clean_name}}">{{clean_name}}</option>
+            {{/tables}}
+            </optgroup>
+          {{/db}}
+        </select>
+      </template>
+
+      <div id="select_variable_box"></div>
+      <template id="select_variable_template">
+        <select data-placeholder="{{nb_item_clean}} variables" class="chosen-select">
+          <option></option>
+          {{#db}}
+          {{#tables}}
+            <optgroup label="{{db_clean_name}}: {{table_name}}" class="select_group">
+            {{#variables}}
+              <option value="{{db_clean_name}};{{table_name}};{{clean_name}}">{{clean_name}}</option>
+            {{/variables}}
+            </optgroup>
+          {{/tables}}
+          {{/db}}
+        </select>
+      </template>
+    </div>
+  </div>
+
+  <div id="main_listing"></div>
 </body>
 <script src="../data/all_current_variables.js"></script>
-<script src="Url_params.js"></script>
-<script src="utils.js"></script>
-<script src="Catalog.js"></script>
-<script src="script.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/Url_params.js"></script>
+<script src="js/Catalog.js"></script>
+<script src="js/Selector.js"></script>
+<script src="js/app.js"></script>
 </html>
