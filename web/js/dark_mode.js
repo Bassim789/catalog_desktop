@@ -1,11 +1,20 @@
 
-const dark_mode = window.localStorage.getItem('dark_mode')
-
-if(dark_mode === 'on'){
-  $('body').addClass('dark_mode')
+if(window.localStorage.getItem('dark_mode') === 'on'){
+  $('html').addClass('dark')
 }
 
-$('body').on('click', '.btn_dark_mode', () => {
-  console.log('test')
-  $('body').addClass('dark_mode')
+$(() =>{
+  if(window.localStorage.getItem('dark_mode') === 'on'){
+    $('.btn_dark_mode input').prop('checked', true)
+  }
+})
+
+$('html').on('click', '.btn_dark_mode .slider', () => {
+  if(window.localStorage.getItem('dark_mode') === 'on'){
+    $('html').removeClass('dark')
+    window.localStorage.setItem('dark_mode', 'off')
+  } else {
+    $('html').addClass('dark')
+    window.localStorage.setItem('dark_mode', 'on')
+  }
 })
