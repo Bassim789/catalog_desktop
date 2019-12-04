@@ -1,7 +1,7 @@
 html, body{
   padding: 0;
   margin: 0;
-  background: #f5f5f5;
+  background: #ddd;
   color: #666;
   font-family: 'Helvetica Neue, Helvetica, Arial';
 }
@@ -15,22 +15,19 @@ html, body{
   margin-bottom: 20px; 
   display: inline-block; 
   width: 100%;
-  border: 1px solid #ddd;
   border-radius: 20px;
   padding: 5px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  background: #fbfbfb;
+  background: #eee;
 }
 
 .variable_box{
   display: inline-block;
   margin: 5px 3px;
   vertical-align: top;
-
   background: #fff;
-  border: 1px solid #ddd;
   border-radius: 20px;
 }
 
