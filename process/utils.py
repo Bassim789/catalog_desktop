@@ -11,6 +11,8 @@ class Number():
   def clean_num(num):
     if isinstance(num, str):
       return num
+    if isinstance(num, float):
+      return num
     num = num.round(3)
     if num > 10:
       num = int(num.astype(int))

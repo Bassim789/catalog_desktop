@@ -1,3 +1,4 @@
+import warnings
 from utils import Number
 from IO_file import IO_file
 io_file = IO_file()
@@ -42,10 +43,12 @@ class Vars_meta():
     return data
 
   def add_number_stat(self, data, var):
-    data['min'] = Number.clean_num(var.min())
-    data['mean'] = Number.clean_num(var.mean())
-    data['median'] = Number.clean_num(var.median())
-    data['max'] = Number.clean_num(var.max())
+    with warnings.catch_warnings():
+      warnings.simplefilter('ignore', category=RuntimeWarning)
+      data['min'] = Number.clean_num(var.min())
+      data['mean'] = Number.clean_num(var.mean())
+      data['median'] = Number.clean_num(var.median())
+      data['max'] = Number.clean_num(var.max())
     return data
 
   def add_vars_info(self, data, vars_info):
@@ -60,8 +63,12 @@ class Vars_meta():
     self.data = self.data.drop(columns=['description'])
     if io_file.file_exists(path):
       historic = io_file.load(path)
-      condition = historic.version_name == self.version_name
-      historic = historic.drop(historic[condition].index)
+      
+      historic = io_file.no_warn_drop(
+        historic, 
+        lambda f: historic.version_name == self.version_name
+      )
+      
       if self.is_current_version:
         pass#historic.is_current = False
       vars_meta = io_file.concat([historic, self.data])

@@ -47,7 +47,8 @@ class Data_loader():
   def load_data(self):
     versions = Versions(self.versions_path)
     versions.load_data()
-    versions.data = versions.data.sort_values('data_date', ascending=False)
+    if 'data_date' in versions.data:
+      versions.data = versions.data.sort_values('data_date', ascending=False)
     versions.is_changed = False
     versions.data_updated = []
 
@@ -69,11 +70,11 @@ class Data_loader():
     database_info.save_to_all_databases(self.all_databases_path)
 
     nb_iter = -1
-    for i, version in versions.data.iterrows():
+    for i, version_data in versions.data.iterrows():
       nb_iter += 1
 
-      versions.data_updated.append(version)
-      version = Version(version)
+      versions.data_updated.append(version_data)
+      version = Version(version_data)
       version.load_data()
       version.is_current = nb_iter == 0
 
@@ -92,6 +93,8 @@ class Data_loader():
       log('updating_table', version.name)
 
       versions.is_changed = True
+      versions.data_updated[nb_iter]['name'] = version.name
+      versions.data_updated[nb_iter]['data_date'] = version.data_date
       versions.data_updated[nb_iter]['data_last_modif'] = version.data_last_modif
       versions.data_updated[nb_iter]['meta_last_modif'] = version.meta_last_modif
 
@@ -106,7 +109,7 @@ class Data_loader():
 
       if version.is_current:
         vars_meta.save_current_variables(self.current_variables_path)
-       
+      
       vars_meta.save_historic_variables(self.historic_variables_path)
 
     if versions.is_changed:
@@ -122,7 +125,7 @@ class Data_loader():
     current_variables.insert(loc=0, column='table', value=self.path_name.strip('/'))
     if io_file.is_dataframe(all_current):
       condition = all_current.table == self.path_name.strip('/')
-      all_current = all_current.drop(all_current[condition].index)
+      all_current = io_file.drop_where(all_current, condition)  
       all_vars = io_file.concat([all_current, current_variables])
     else:
       all_vars = current_variables

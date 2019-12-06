@@ -19,6 +19,7 @@ class Vars_info(Dataframe):
     columns = ['var_name_origin', 'var_name', 'type', 'description']
     vars_info_output = io_file.dict_to_dataframe(data, columns=columns)
     io_file.save(self.path, vars_info_output)
+    io_file.adjust_excel_column_width(self.path)
 
   def get_dict_vars(self, vars_info, source_data):
     dict_vars = {}

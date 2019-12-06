@@ -2,22 +2,56 @@ import pandas
 import json
 import os
 from datetime import datetime
+import csv
+import openpyxl
+import warnings
 
 class IO_file():
 
   def __init__(self):
     self.datetime_format = "%Y-%m-%d %H:%M:%S"
 
-  def load(self, path, source='excel'):
+  def load(self, path):
     if not os.path.exists(path):
       return False
-    if source == 'excel':
+
+    file_extension = os.path.splitext(path)[1]
+
+    if file_extension in ['.xls', '.xlsx']:
       return pandas.read_excel(path)
-    elif source == 'csv':
-      return pandas.read_csv(path)
+    
+    elif file_extension in ['.csv', '.txt']:
+      delimiter = self.get_csv_delimiter(path)
+      return pandas.read_csv(path, delimiter=delimiter, encoding='ISO-8859-1')
 
   def file_exists(self, path):
     return os.path.exists(path)
+
+  def get_csv_delimiter(self, path):
+    with open(path, errors='replace') as f:
+      first_line = f.readline()
+      sniffer = csv.Sniffer()
+      dialect = sniffer.sniff(first_line)
+    return dialect.delimiter
+
+  def adjust_excel_column_width(self, path):
+    wb = openpyxl.load_workbook(filename=path)        
+    worksheet = wb.active
+    for col in worksheet.columns:
+      max_length = 0
+      column = col[0].column
+      for cell in col:
+        if cell.coordinate in worksheet.merged_cells:
+          continue
+        try:
+          if len(str(cell.value)) > max_length:
+            max_length = len(cell.value)
+        except:
+          pass
+      adjusted_width = (max_length + 2) * 1.2
+      column_letter = openpyxl.utils.get_column_letter(column)
+      worksheet.column_dimensions[column_letter].width = adjusted_width
+    wb.save(path)
 
   def remove_file(self, path):
     if os.path.exists(path):
@@ -83,3 +117,18 @@ class IO_file():
       for prop in data[row]:
         print(prop, ': ', data[row][prop])
       print()
+
+  def drop_where(self, data, condition):
+    with warnings.catch_warnings():
+      warnings.simplefilter(action='ignore', category=FutureWarning)
+      return data.drop(data[condition].index)
+
+  def no_warn_condition(self, condition):
+    with warnings.catch_warnings():
+      warnings.simplefilter(action='ignore', category=FutureWarning)
+      return condition
+
+  def no_warn_drop(self, data, condition):
+    with warnings.catch_warnings():
+      warnings.simplefilter(action='ignore', category=FutureWarning)
+      return data.drop(data[condition].index)

@@ -8,3 +8,4 @@ class Versions(Dataframe):
 
   def update(self):
     io_file.save(self.path, io_file.dict_to_dataframe(self.data_updated))
+    io_file.adjust_excel_column_width(self.path)

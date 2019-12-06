@@ -1,4 +1,3 @@
-import warnings
 from Dataframe import Dataframe
 from IO_file import IO_file
 io_file = IO_file()
@@ -17,19 +16,12 @@ class Database_info(Dataframe):
     self.load_data()
 
   def save_to_all_databases(self, path):
-
-    database_data = io_file.load(self.path) # use self.data
-
     if io_file.file_exists(path):
       all_databases = io_file.load(path)
-      with warnings.catch_warnings():
-        warnings.simplefilter(action='ignore', category=FutureWarning)
-        condition = all_databases.db_name == database_data.db_name.values[0]
-        all_databases = all_databases.drop(all_databases[condition].index)
-      all_databases_data = io_file.concat([all_databases, database_data])
-
+      condition = all_databases.db_name == self.data.db_name.values[0]
+      all_databases = io_file.drop_where(all_databases, condition)
+      all_databases_data = io_file.concat([all_databases, self.data])
     else:
-      all_databases_data = database_data
-
+      all_databases_data = self.data
     io_file.save(path, all_databases_data)
     io_file.copy_excel_to_js(path, 'all_databases')

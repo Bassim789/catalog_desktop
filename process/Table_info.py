@@ -1,4 +1,3 @@
-import warnings
 from Dataframe import Dataframe
 from log import log
 from IO_file import IO_file
@@ -20,6 +19,7 @@ class Table_info(Dataframe):
       'description': "Description of table " + self.table_name
     }]
     io_file.save(self.path, io_file.dict_to_dataframe(data))
+    io_file.adjust_excel_column_width(self.path)
     self.load_data()
 
   def db_or_table_name_changed(self):
@@ -37,21 +37,14 @@ class Table_info(Dataframe):
     log('update_table_and_db_name', old_db_table_name, '=>', new_db_table_name)
 
   def save_to_all_tables(self, path):
-
-    table_data = io_file.load(self.path) # use self.data
-
     if io_file.file_exists(path):
       all_tables = io_file.load(path)
-      with warnings.catch_warnings():
-        warnings.simplefilter(action='ignore', category=FutureWarning)
-        condition = (all_tables.db_name == table_data.db_name.values[0]) & \
-                    (all_tables.table_name == table_data.table_name.values[0])
-        all_tables = all_tables.drop(all_tables[condition].index)
-      all_tables_data = io_file.concat([all_tables, table_data])
-
+      condition = (all_tables.db_name == self.data.db_name.values[0]) & \
+                  (all_tables.table_name == self.data.table_name.values[0])
+      all_tables = io_file.drop_where(all_tables, condition)
+      all_tables_data = io_file.concat([all_tables, self.data])
     else:
-      all_tables_data = table_data
-
+      all_tables_data = self.data
     io_file.save(path, all_tables_data)
     io_file.copy_excel_to_js(path, 'all_tables')
     

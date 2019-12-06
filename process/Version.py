@@ -1,14 +1,19 @@
 from Dataframe import Dataframe
+from log import log
 from IO_file import IO_file
 io_file = IO_file()
 
 class Version(Dataframe):
   def __init__(self, version):
-    super().__init__(version['path'].strip() + version['file'].strip())
-    self.new_data_last_modif = version['data_last_modif']
-    self.name = str(version['name']).strip()
-    self.data_date = version['data_date']
-    self.info_last_modif = version['info_last_modif']
+    if 'path' not in version:
+      log('Error: missing column "path" in version file')
+      return False
+    super().__init__(version['path'].strip())
+
+    self.name = str(version['name']).strip() if 'name' in version else 'current'
+    self.data_date = version['data_date'] if 'data_date' in version else '2020'  
+    self.new_data_last_modif = version['data_last_modif'] if 'data_last_modif' in version else 0
+    self.info_last_modif = version['info_last_modif'] if 'info_last_modif' in version else ''
 
   def filter_unnamed_cols(self):
     self.data = self.data.loc[:, ~self.data.columns.str.contains('^Unnamed')]
