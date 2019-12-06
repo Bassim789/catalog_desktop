@@ -30,6 +30,25 @@ class Catalog{
     }
     this.databases = databases
   }
+  add_tables_data(all_tables){
+    for (const database of this.databases){
+      for (const table of database.tables){
+        for(const table_data of Object.values(all_tables)){
+          if( table_data.db_name != database.db_name 
+              || table.table_name != table_data.table_name) continue
+          table.description = table_data.description
+        }
+      }
+    }
+  }
+  add_databases_data(all_databases){
+    for (const database of this.databases){
+      for(const database_data of Object.values(all_databases)){
+        if(database_data.db_name != database.db_name) continue
+        database.description = database_data.description
+      }
+    }
+  }
   set_variables(){
     for (const database of this.databases){
       for (const table of database.tables){

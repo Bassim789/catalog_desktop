@@ -3,18 +3,19 @@ html, body{
   margin: 0;
   background: #ddd;
   color: #666;
-  font-family: 'Helvetica Neue, Helvetica, Arial';
+  font-family: Helvetica Neue, Helvetica, Arial;
 }
 
 #main_listing{
-  margin: 10px;
-  margin-top: 50px;
+  margin: 20px;
+  margin-top: 20px;
 }
 
 .table_box{
-  margin-bottom: 20px; 
+  margin-left: 20px;
+  margin-bottom: 20px;
   display: inline-block; 
-  width: 100%;
+  width: calc(100% - 20px);
   border-radius: 20px;
   padding: 5px;
   -webkit-box-sizing: border-box;
@@ -25,7 +26,10 @@ html, body{
 
 .variable_box{
   display: inline-block;
+  max-width: 300px;
   margin: 5px 3px;
+  padding: 5px;
+  padding-bottom: 10px;
   vertical-align: top;
   background: #fff;
   border-radius: 20px;

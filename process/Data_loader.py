@@ -1,9 +1,11 @@
+from Database_info import Database_info
 from Table_info import Table_info
 from Versions import Versions
 from Version import Version
 from Vars_info import Vars_info 
 from Vars_meta import Vars_meta 
 from IO_file import IO_file
+from log import log
 
 io_file = IO_file()
 
@@ -11,11 +13,15 @@ class Data_loader():
   def __init__(self, catalog_data_path):
     self.catalog_data_path = catalog_data_path
     self.all_current_variables_path = catalog_data_path + 'all_current_variables.xlsx'
+    self.all_tables_path = catalog_data_path + 'all_tables.xlsx'
+    self.all_databases_path = catalog_data_path + 'all_databases.xlsx'
 
   def set_path(self, path_name):
+    log('checking', path_name)
     self.path_name = path_name
     self.path = self.catalog_data_path + path_name
     self.table_info_path = self.path + 'table.xlsx'
+    self.database_info_path = self.path + '../database.xlsx'
     self.versions_path = self.path + 'versions.xlsx'
     self.var_info_path = self.path + 'variable.xlsx'
     self.historic_variables_path = self.path + 'historic_variables.xlsx'
@@ -27,13 +33,18 @@ class Data_loader():
       self.current_variables_path
     ]
 
+  def clear_path_all(self):
+    io_file.remove_file(self.all_current_variables_path)
+    io_file.remove_file(self.all_tables_path)
+    io_file.remove_file(self.all_databases_path)
+
   def clear_path(self):
     io_file.remove_file(self.var_info_path)
+    io_file.remove_file(self.table_info_path)
     io_file.remove_file(self.historic_variables_path)
     io_file.remove_file(self.current_variables_path)
 
   def load_data(self):
-
     versions = Versions(self.versions_path)
     versions.load_data()
     versions.data = versions.data.sort_values('data_date', ascending=False)
@@ -49,6 +60,14 @@ class Data_loader():
       table_info.update_table_and_db_name(self.all_current_variables_path)
       table_info.create(versions)
 
+    table_info.save_to_all_tables(self.all_tables_path)
+
+    database_info = Database_info(self.database_info_path, self.path_name)
+    database_info.load_data()
+    if not database_info.is_loaded():
+      database_info.create()
+    database_info.save_to_all_databases(self.all_databases_path)
+
     nb_iter = -1
     for i, version in versions.data.iterrows():
       nb_iter += 1
@@ -59,7 +78,7 @@ class Data_loader():
       version.is_current = nb_iter == 0
 
       if not version.is_loaded():
-        print('error: cannot load version ' + version.path)
+        log('error: cannot load version ' + version.path)
         continue
 
       version.filter_unnamed_cols()
@@ -70,7 +89,7 @@ class Data_loader():
         and not version.is_vars_info_changed(self.var_info_path): 
         continue
       
-      print('updating_table', version.name)
+      log('updating_table', version.name)
 
       versions.is_changed = True
       versions.data_updated[nb_iter]['data_last_modif'] = version.data_last_modif
@@ -92,10 +111,11 @@ class Data_loader():
 
     if versions.is_changed:
       versions.update()
-      return True
-    return False
+    
+    self.is_changed = versions.is_changed
 
   def update_main_data(self):
+    log('updating', self.path_name)
     current_variables = io_file.load(self.current_variables_path)
     all_current = io_file.load(self.all_current_variables_path)
 
