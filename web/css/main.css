@@ -26,7 +26,7 @@ html, body{
 
 .variable_box{
   display: inline-block;
-  max-width: 300px;
+  max-width: 400px;
   margin: 5px 3px;
   padding: 5px;
   padding-bottom: 10px;
@@ -51,8 +51,8 @@ html, body{
 }
 
 .percent_bar{
-  height: 14px;
-  background: #bdd700;
+  height: 20px;
+  background: rgba(24, 196, 8, 0.4);
   display: inline-block;
   float: left;
   position: absolute;
@@ -60,40 +60,7 @@ html, body{
   left: 0;
 }
 
-.modality_hidden{
-  display: none;
-}
-
-.btn_show_more{
-  width: 100%; 
-  cursor: pointer;
-  border: 0;
-  outline: none;
-}
-.btn_show_more:active{
-  background: #ddd;
-}
-
-.show_less_modality{
-  display: none;
-  width: 100%; 
-  cursor: pointer;
-  border: 0;
-  outline: none;
-}
-.show_less_modality:active{
-  background: #ddd;
-}
-
-.btn_modality_group_name{
-  cursor: pointer;
-}
-.btn_modality_group_name:active{
-  background: #ddd;
-}
-
 .expression_box{
-  max-width: 200px; 
   max-height: 50px; 
   overflow: auto;
   word-break: break-all;
@@ -101,4 +68,17 @@ html, body{
 
 .table_modalities td{
   border-top: 1px solid #ddd;
+}
+.table_modalities .modality_value{
+  max-height: 20px;
+  max-width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  float: left;
+}
+.table_modalities .modality_value:hover{
+  max-height: none;
+  width: auto;
+  white-space: normal;
 }

@@ -6,6 +6,7 @@ $(() => {
   catalog.load(all_current_variables)
   catalog.add_tables_data(all_tables)
   catalog.add_databases_data(all_databases)
+  catalog.add_modalities_data(all_current_modalities)
   catalog.set_variables()
   catalog.set_tables()
   catalog.set_databases()

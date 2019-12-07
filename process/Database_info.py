@@ -19,7 +19,7 @@ class Database_info(Dataframe):
     if io_file.file_exists(path):
       all_databases = io_file.load(path)
       condition = all_databases.db_name == self.data.db_name.values[0]
-      all_databases = io_file.drop_where(all_databases, condition)
+      all_databases = all_databases.drop(all_databases[condition].index)
       all_databases_data = io_file.concat([all_databases, self.data])
     else:
       all_databases_data = self.data

@@ -41,7 +41,7 @@ class Table_info(Dataframe):
       all_tables = io_file.load(path)
       condition = (all_tables.db_name == self.data.db_name.values[0]) & \
                   (all_tables.table_name == self.data.table_name.values[0])
-      all_tables = io_file.drop_where(all_tables, condition)
+      all_tables = all_tables.drop(all_tables[condition].index)
       all_tables_data = io_file.concat([all_tables, self.data])
     else:
       all_tables_data = self.data

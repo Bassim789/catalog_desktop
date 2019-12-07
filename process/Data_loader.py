@@ -3,7 +3,8 @@ from Table_info import Table_info
 from Versions import Versions
 from Version import Version
 from Vars_info import Vars_info 
-from Vars_meta import Vars_meta 
+from Vars_meta import Vars_meta
+from Modalities_meta import Modalities_meta
 from IO_file import IO_file
 from log import log
 
@@ -15,6 +16,7 @@ class Data_loader():
     self.all_current_variables_path = catalog_data_path + 'all_current_variables.xlsx'
     self.all_tables_path = catalog_data_path + 'all_tables.xlsx'
     self.all_databases_path = catalog_data_path + 'all_databases.xlsx'
+    self.all_current_modalities_path = catalog_data_path + 'all_current_modalities.xlsx'
 
   def set_path(self, path_name):
     log('checking', path_name)
@@ -26,6 +28,8 @@ class Data_loader():
     self.var_info_path = self.path + 'variable.xlsx'
     self.historic_variables_path = self.path + 'historic_variables.xlsx'
     self.current_variables_path = self.path + 'current_variables.xlsx'
+    self.historic_modalities_path = self.path + 'historic_modalities.xlsx'
+    self.current_modalities_path = self.path + 'current_modalities.xlsx'
     self.files = [
       self.versions_path,
       self.var_info_path,
@@ -43,6 +47,7 @@ class Data_loader():
     io_file.remove_file(self.table_info_path)
     io_file.remove_file(self.historic_variables_path)
     io_file.remove_file(self.current_variables_path)
+    io_file.remove_file(self.current_modalities_path)
 
   def load_data(self):
     versions = Versions(self.versions_path)
@@ -107,10 +112,14 @@ class Data_loader():
       vars_meta = Vars_meta(version)
       vars_meta.get_vars_data(vars_info.data, version.data)
 
+      modalities_meta = Modalities_meta()
+
       if version.is_current:
         vars_meta.save_current_variables(self.current_variables_path)
+        modalities_meta.save_current(self.current_modalities_path, version.data)
       
       vars_meta.save_historic_variables(self.historic_variables_path)
+      modalities_meta.save_historic(self.historic_modalities_path)
 
     if versions.is_changed:
       versions.update()
@@ -125,10 +134,26 @@ class Data_loader():
     current_variables.insert(loc=0, column='table', value=self.path_name.strip('/'))
     if io_file.is_dataframe(all_current):
       condition = all_current.table == self.path_name.strip('/')
-      all_current = io_file.drop_where(all_current, condition)  
+      all_current = all_current.drop(all_current[condition].index)
       all_vars = io_file.concat([all_current, current_variables])
     else:
       all_vars = current_variables
     io_file.save(self.all_current_variables_path, all_vars)
     io_file.copy_excel_to_js(self.all_current_variables_path, 'all_current_variables')
+
+  def update_main_modality(self):
+    log('updating modality of', self.path_name)
+    current_modalities = io_file.load(self.current_modalities_path)
+    all_current = io_file.load(self.all_current_modalities_path)
+
+    current_modalities.insert(loc=0, column='table', value=self.path_name.strip('/'))
+    if io_file.is_dataframe(all_current):
+      condition = all_current.table == self.path_name.strip('/')
+      all_current = all_current.drop(all_current[condition].index)
+      all_modalities = io_file.concat([all_current, current_modalities])
+    else:
+      all_modalities = current_modalities
+    io_file.save(self.all_current_modalities_path, all_modalities)
+    io_file.copy_excel_to_js(self.all_current_modalities_path, 'all_current_modalities')
+
 

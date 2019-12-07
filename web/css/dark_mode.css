@@ -3,7 +3,7 @@
   position: fixed;
   top: 5px;
   right: 5px;
-  z-index: 2;
+  z-index: 5;
 }
 .switch {
   position: relative;
@@ -64,7 +64,9 @@ body,
 .table_box,
 #selection_boxes,
 .variable_box,
-.chosen-container-single .chosen-single{
+.chosen-container-single .chosen-single,
+.chosen-container .chosen-drop,
+.percent_bar{
   color: #666;
   -webkit-transition: .4s;
   transition: .4s;
@@ -88,4 +90,8 @@ html.dark .chosen-container .no-results,
 html.dark .chosen-container input{
   color: #eee;
   background: #333;
+}
+
+html.dark .percent_bar{
+  background: rgba(24, 196, 8, 0.8);
 }

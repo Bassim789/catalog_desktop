@@ -75,6 +75,33 @@
               <td>max</td>
             </tr>
             <!-- {{/type_number}} -->
+            <tr>
+              <td colspan="2">
+                <div style="text-align: center; margin-top: 10px;">
+                  frequent values
+                </div>
+                <table class="table_modalities">
+                  <!-- {{#modalities}} -->
+                  <tr>
+                    <td style="text-align: left; max-width: 180px;">
+                      <span class="modality_value">{{value}}</span>
+                    </td>
+                    <td>
+                      <div style="width: 100%; position: relative;">
+                        <div style="z-index: 2; position: absolute; top: 0; left: 3px;">
+                          {{nb}} ({{percent}}%)
+                        </div>
+                        <div style="z-index: -2; visibility: hidden; margin-left: 3px;">
+                          {{nb}} ({{percent}}%)
+                        </div>
+                        <div class="percent_bar" style="width: {{percent}}%"></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <!-- {{/modalities}} -->
+                </table>
+              </td>
+            </tr>
           </table>
         </div>
         <!-- {{/variables}} -->
@@ -154,6 +181,7 @@
 
   <div id="main_listing"></div>
 </body>
+<script src="../data/all_current_modalities.js"></script>
 <script src="../data/all_current_variables.js"></script>
 <script src="../data/all_tables.js"></script>
 <script src="../data/all_databases.js"></script>

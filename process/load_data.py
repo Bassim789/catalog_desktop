@@ -17,5 +17,6 @@ for versions_file in Path(data_path).rglob('versions.xlsx'):
   data_loader.load_data()
   if data_loader.is_changed:
     data_loader.update_main_data()
+    data_loader.update_main_modality()
 
 #webbrowser.open('file://' + catalog_path + 'web/index.html')

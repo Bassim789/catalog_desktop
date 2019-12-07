@@ -6,8 +6,7 @@
   left: 0;
   right: 0;
   text-align: center;
-  /*background: #fff;
-  border-bottom: 1px solid #ddd;*/
+  z-index: 3;
 }
 
 #selection_boxes{

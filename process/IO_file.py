@@ -4,7 +4,6 @@ import os
 from datetime import datetime
 import csv
 import openpyxl
-import warnings
 
 class IO_file():
 
@@ -18,11 +17,19 @@ class IO_file():
     file_extension = os.path.splitext(path)[1]
 
     if file_extension in ['.xls', '.xlsx']:
-      return pandas.read_excel(path)
+      return pandas.read_excel(
+        path, 
+        #converters={'Date': str}
+      )
     
     elif file_extension in ['.csv', '.txt']:
       delimiter = self.get_csv_delimiter(path)
-      return pandas.read_csv(path, delimiter=delimiter, encoding='ISO-8859-1')
+      return pandas.read_csv(
+        path, 
+        delimiter=delimiter, 
+        encoding='ISO-8859-1', 
+        #converters={'Date': str}
+      )
 
   def file_exists(self, path):
     return os.path.exists(path)
@@ -82,7 +89,7 @@ class IO_file():
       return pandas.DataFrame(dict_data)
 
   def concat(self, dataframes):
-    return pandas.concat(dataframes)
+    return pandas.concat(dataframes, sort=True)
 
   def save(self, path, dataframe, output='excel'):
     if output == 'excel':
@@ -102,7 +109,7 @@ class IO_file():
   def save_to_json(self, path, dataframe):
     data = dataframe.fillna('').to_dict('index')
     with open(path, 'w') as file:
-      json.dump(data, file)
+      json.dump(data, file, default=str)
 
   def prepend_line(self, path, line):
     with open(path, 'r+') as file:
@@ -117,18 +124,3 @@ class IO_file():
       for prop in data[row]:
         print(prop, ': ', data[row][prop])
       print()
-
-  def drop_where(self, data, condition):
-    with warnings.catch_warnings():
-      warnings.simplefilter(action='ignore', category=FutureWarning)
-      return data.drop(data[condition].index)
-
-  def no_warn_condition(self, condition):
-    with warnings.catch_warnings():
-      warnings.simplefilter(action='ignore', category=FutureWarning)
-      return condition
-
-  def no_warn_drop(self, data, condition):
-    with warnings.catch_warnings():
-      warnings.simplefilter(action='ignore', category=FutureWarning)
-      return data.drop(data[condition].index)

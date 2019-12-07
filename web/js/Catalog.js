@@ -49,6 +49,21 @@ class Catalog{
       }
     }
   }
+  add_modalities_data(modalities){
+    for (const database of this.databases){
+      for (const table of database.tables){
+        for (const variable of table.variables){
+          variable.modalities = []
+          for (const modality of Object.values(modalities)){
+            if( modality.table !== database.db_name + '/' + table.table_name 
+                || modality.var_name !== variable.var_name)
+              continue
+            variable.modalities.push(modality)
+          }
+        }
+      }
+    }
+  }
   set_variables(){
     for (const database of this.databases){
       for (const table of database.tables){
@@ -96,6 +111,9 @@ class Catalog{
     for (const database of this.databases){
       for (const table of database.tables){
         for (const variable of table.variables){
+          for (const modality of variable.modalities){
+            modality.nb = modality.nb.toLocaleString()
+          }
           variable.nb_row_clean = variable.nb_row.toLocaleString()
           variable.nb_distinct_clean = variable.nb_distinct.toLocaleString()
           variable.nb_duplicate_clean = variable.nb_duplicate.toLocaleString()
