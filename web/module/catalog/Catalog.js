@@ -158,6 +158,8 @@ class Catalog{
       }
       databases.push(db_copy)
     }
-    template('#main_listing', '#template_main_listing', {databases})
+
+    $('#catalog').html(Mustache.render(template_catalog, {databases}))
+    //template('#main_listing', '#template_main_listing', {databases})
   }
 }

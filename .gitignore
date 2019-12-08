@@ -1,4 +1,5 @@
 .DS_Store
-data/*
+data/all/*
+data/databases/*
 process/.pytest_cache
 process/__pycache__

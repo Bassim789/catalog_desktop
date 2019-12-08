@@ -13,10 +13,10 @@ io_file = IO_file()
 class Data_loader():
   def __init__(self, catalog_data_path):
     self.catalog_data_path = catalog_data_path
-    self.all_current_variables_path = catalog_data_path + 'all_current_variables.xlsx'
-    self.all_tables_path = catalog_data_path + 'all_tables.xlsx'
-    self.all_databases_path = catalog_data_path + 'all_databases.xlsx'
-    self.all_current_modalities_path = catalog_data_path + 'all_current_modalities.xlsx'
+    self.all_current_variables_path = catalog_data_path + '../all/current_variables.xlsx'
+    self.all_tables_path = catalog_data_path + '../all/tables.xlsx'
+    self.all_databases_path = catalog_data_path + '../all/databases.xlsx'
+    self.all_current_modalities_path = catalog_data_path + '../all/current_modalities.xlsx'
 
   def set_path(self, path_name):
     log('checking', path_name)
