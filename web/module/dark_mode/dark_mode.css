@@ -61,7 +61,7 @@ input:checked + .slider:before {
 
 html,
 body,
-.table_box,
+.table_wrap,
 #selection_boxes,
 .variable_box,
 .chosen-container-single .chosen-single,
@@ -77,7 +77,7 @@ html.dark body{
   color: #eee;
   background: #111;
 }
-html.dark .table_box,
+html.dark .table_wrap,
 html.dark #selection_boxes{
   color: #eee;
   background: #222;

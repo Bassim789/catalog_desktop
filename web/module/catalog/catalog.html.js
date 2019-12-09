@@ -1,29 +1,29 @@
-const template_catalog = `
+template.catalog = `
 {{#databases}}
 <div class="database_box">
   <div class="database_name">
     {{db_name}}
   </div>
-  <div style="margin: 5px; display: inline-block; float: left; margin-top: 10px;">
+  <div class="database_info">
     {{nb_table_clean}} tables | {{nb_variable_clean}} variables | {{nb_data_clean}} données
   </div>
   <br><br>
-  <div style="margin: 5px; white-space: pre;">{{description}}</div>
+  <div class="database_description">{{description}}</div>
 </div>
-<div style="margin-top: 20px;">
+<div class="tables_listing">
   {{#tables}}
-  <div class="table_box">
-    <div style="width: 100%; display: inline-block; padding-left: 10px;">
-      <div style="font-size: 16px; font-weight: bold; margin: 5px; display: inline-block; float: left;">
+  <div class="table_wrap">
+    <div class="table_box">
+      <div class="table_name">
         {{table_name}}
       </div>
-      <div style="margin: 5px; display: inline-block; float: left; margin-top: 7px;">
+      <div class="table_info">
         {{nb_variable_clean}} variables | {{nb_row_clean}} lignes | {{nb_data_clean}} données
       </div>
       <br><br>
-      <div style="margin: 5px; margin-bottom: 20px; white-space: pre;">{{description}}</div>
+      <div class="table_description">{{description}}</div>
     </div>
-    <div style="margin-left: 20px;">
+    <div class="variables_listing">
       <!-- {{#variables}} -->
       <div class="variable_box">
         <table class="variable_table">
@@ -31,7 +31,7 @@ const template_catalog = `
             <th colspan="2">{{var_name}}</th>
           </tr>
           <tr>
-            <td colspan="2" style="text-align: left; font-style: italic; padding-bottom: 5px;">
+            <td class="variable_description" colspan="2">
               {{description}}
             </td>
           </tr>
@@ -76,21 +76,21 @@ const template_catalog = `
           <!-- {{/type_number}} -->
           <tr>
             <td colspan="2">
-              <div style="text-align: center; margin-top: 10px;">
+              <div class="modalities_box_name">
                 frequent values
               </div>
               <table class="table_modalities">
                 <!-- {{#modalities}} -->
                 <tr>
-                  <td style="text-align: left; max-width: 180px;">
+                  <td class="modality_value_wrap">
                     <span class="modality_value">{{value}}</span>
                   </td>
                   <td>
-                    <div style="width: 100%; position: relative;">
-                      <div style="z-index: 2; position: absolute; top: 0; left: 3px;">
+                    <div class="modality_frequence_box">
+                      <div class="modality_frequence">
                         {{nb}} ({{percent}}%)
                       </div>
-                      <div style="z-index: -2; visibility: hidden; margin-left: 3px;">
+                      <div class="modality_frequence_hidden">
                         {{nb}} ({{percent}}%)
                       </div>
                       <div class="percent_bar" style="width: {{percent}}%"></div>
@@ -108,4 +108,5 @@ const template_catalog = `
   </div>
   {{/tables}}
 </div>
-{{/databases}}`
+{{/databases}}
+`;

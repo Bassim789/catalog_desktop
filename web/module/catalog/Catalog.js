@@ -2,6 +2,9 @@ class Catalog{
   constructor(){
     this.type_number = ['int64', 'float64']
   }
+  append_to_body(){
+    $('body').append('<div id="catalog"></div>')
+  }
   load(all_variables){
     let databases = {}
     for (const variable of Object.values(all_variables)){
@@ -158,8 +161,6 @@ class Catalog{
       }
       databases.push(db_copy)
     }
-
-    $('#catalog').html(Mustache.render(template_catalog, {databases}))
-    //template('#main_listing', '#template_main_listing', {databases})
+    template.render('#catalog', 'catalog', {databases})
   }
 }

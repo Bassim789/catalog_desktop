@@ -1,0 +1,157 @@
+
+#catalog{
+  margin: 20px;
+  margin-top: 20px;
+}
+
+
+.database_box{
+  width: 100%; 
+  display: inline-block; 
+  margin-top: 50px;
+}
+.database_box .database_name{
+  display: inline-block; 
+  float: left;
+  margin: 5px; 
+  font-size: 20px; 
+  font-weight: bold;
+}
+.database_info{
+  display: inline-block; 
+  float: left;
+  margin: 5px; 
+  margin-top: 10px;
+}
+.database_description{
+  margin: 5px; 
+  white-space: pre;
+}
+
+
+.tables_listing{
+  margin-top: 20px;
+}
+.table_wrap{
+  margin-left: 20px;
+  margin-bottom: 20px;
+  display: inline-block; 
+  width: calc(100% - 20px);
+  border-radius: 20px;
+  padding: 5px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background: #eee;
+}
+.table_box{
+  display: inline-block;
+  width: 100%;
+  padding-left: 10px;
+}
+.table_name{
+  display: inline-block;
+  float: left;
+  margin: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+.table_info{
+  display: inline-block;
+  float: left;
+  margin: 5px;
+  margin-top: 7px;
+}
+.table_description{
+  margin: 5px; 
+  margin-bottom: 20px; 
+  white-space: pre;
+}
+
+
+.variables_listing{
+  margin-left: 20px;
+}
+.variable_box{
+  display: inline-block;
+  max-width: 400px;
+  margin: 5px 3px;
+  padding: 5px;
+  padding-bottom: 10px;
+  vertical-align: top;
+  background: #fff;
+  border-radius: 20px;
+}
+.variable_table{
+  border-collapse: collapse;
+}
+.variable_table th{
+  padding: 3px 15px;
+}
+.variable_table td {
+    padding: 0 5px;
+}
+.variable_table td:first-child{
+  text-align: right;
+}
+.variable_table td.variable_description{
+  text-align: left; 
+  font-style: italic; 
+  padding-bottom: 5px;
+}
+
+
+.modalities_box_name{
+  text-align: center; 
+  margin-top: 10px;
+}
+.expression_box{
+  max-height: 50px; 
+  overflow: auto;
+  word-break: break-all;
+}
+.table_modalities td{
+  border-top: 1px solid #ddd;
+}
+.table_modalities .modality_value_wrap{
+  text-align: left; 
+  max-width: 180px;
+}
+.table_modalities .modality_value{
+  text-align: left;
+  max-height: 20px;
+  max-width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  float: left;
+}
+.table_modalities .modality_value:hover{
+  max-height: none;
+  width: auto;
+  white-space: normal;
+}
+.modality_frequence_box{
+  position: relative;
+  width: 100%;
+}
+.modality_frequence{
+  position: absolute; 
+  top: 0; 
+  left: 3px;
+  z-index: 2;
+}
+.modality_frequence_hidden{
+  margin-left: 3px;
+  visibility: hidden;
+  z-index: -2;
+}
+.percent_bar{
+  height: 20px;
+  background: rgba(24, 196, 8, 0.4);
+  display: inline-block;
+  float: left;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

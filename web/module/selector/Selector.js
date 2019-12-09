@@ -18,6 +18,9 @@ class Selector{
       }
     }
   }
+  append_to_body(){
+    template.append('body', 'selector')
+  }
   set_catalog_data(databases){
     this.databases = databases
   }
@@ -94,9 +97,8 @@ class Selector{
   }
   render_box(item, db){
     const box_id = '#select_' + item + '_box'
-    const box_template_id = '#select_' + item + '_template'
     const nb_item_clean = this.boxes[item].nb_clean
-    template(box_id, box_template_id, {db, nb_item_clean})
+    template.render(box_id, 'select_' + item, {db, nb_item_clean})
     $(box_id + ' .chosen-select').trigger('chosen:updated')
   }
   init_chosen(selector = '.chosen-select'){

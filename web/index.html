@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>catalog</title>
+  <title>Data Catalog</title>
+  <meta charset="utf-8">
+
   <script src="lib/jquery.min.js"></script>
   <script src="lib/mustache.min.js"></script>
   <script src="lib/chosen/chosen.jquery.min.js"></script>
   <link href="lib/chosen/chosen.min.css" rel="stylesheet">
 
   <link href="main.css" rel="stylesheet">
-
-  <link href="module/selector/selector.css" rel="stylesheet">
-  <script src="module/selector/Selector.js"></script>
-
-  <link href="module/dark_mode/dark_mode.css" rel="stylesheet">
-  <script src="module/dark_mode/dark_mode.js"></script>
-
   <script src="module/utils.js"></script>
   <script src="module/Url_params.js"></script>
 
-  <script src="module/catalog/Catalog.js"></script>
+  <link href="module/dark_mode/dark_mode.css" rel="stylesheet">
+  <script src="module/dark_mode/dark_mode.js"></script>
+  <script src="module/dark_mode/dark_mode.html.js"></script>
+
+  <link href="module/selector/selector.css" rel="stylesheet">
+  <script src="module/selector/selector.js"></script>
+  <script src="module/selector/selector.html.js"></script>
+  
+  <link href="module/catalog/catalog.css" rel="stylesheet">
+  <script src="module/catalog/catalog.js"></script>
   <script src="module/catalog/catalog.html.js"></script>
 
   <script src="../data/all/current_modalities.js"></script>
@@ -27,63 +31,6 @@
   <script src="../data/all/databases.js"></script>
 </head>
 <body>
-  
-  <!-- Module dark mode -->
-  <div class="btn_dark_mode">
-    <label class="switch">
-      <input type="checkbox">
-      <span class="slider round"></span>
-    </label>
-  </div>
-  
-  <!-- Module selector -->
-  <div id="selection_boxes_wrapper">
-    <div id="selection_boxes">
-
-      <div id="select_db_box"></div>
-      <template id="select_db_template">
-        <select data-placeholder="{{nb_item_clean}} databases" class="chosen-select">
-          <option></option>
-          {{#db}}
-            <option value="{{db_clean_name}}">{{db_clean_name}}</option> 
-          {{/db}}
-        </select>
-      </template>
-
-      <div id="select_table_box"></div>
-      <template id="select_table_template">
-        <select data-placeholder="{{nb_item_clean}} tables" class="chosen-select">
-          <option></option>
-          {{#db}}
-            <optgroup label="{{db_clean_name}}">
-            {{#tables}}
-              <option value="{{db_clean_name}};{{clean_name}}">{{clean_name}}</option>
-            {{/tables}}
-            </optgroup>
-          {{/db}}
-        </select>
-      </template>
-
-      <div id="select_variable_box"></div>
-      <template id="select_variable_template">
-        <select data-placeholder="{{nb_item_clean}} variables" class="chosen-select">
-          <option></option>
-          {{#db}}
-          {{#tables}}
-            <optgroup label="{{db_clean_name}}: {{table_name}}" class="select_group">
-            {{#variables}}
-              <option value="{{db_clean_name}};{{table_name}};{{clean_name}}">{{clean_name}}</option>
-            {{/variables}}
-            </optgroup>
-          {{/tables}}
-          {{/db}}
-        </select>
-      </template>
-    </div>
-  </div>
-
-  <div id="catalog"></div>
-  
   <script src="app.js"></script>
 </body>
 </html>
