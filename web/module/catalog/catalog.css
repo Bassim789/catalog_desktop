@@ -85,6 +85,10 @@
 .variable_table{
   border-collapse: collapse;
 }
+.variable_number_info_section,
+.variable_modalities_info_section{
+  border-top: 10px solid transparent;
+}
 .variable_table th{
   padding: 3px 15px;
 }
@@ -103,7 +107,6 @@
 
 .modalities_box_name{
   text-align: center; 
-  margin-top: 10px;
 }
 .expression_box{
   max-height: 50px; 

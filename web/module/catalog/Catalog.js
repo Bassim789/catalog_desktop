@@ -40,6 +40,7 @@ class Catalog{
           if( table_data.db_name != database.db_name 
               || table.table_name != table_data.table_name) continue
           table.description = table_data.description
+          table.nb_row = table_data.nb_row
         }
       }
     }
@@ -70,11 +71,13 @@ class Catalog{
   set_variables(){
     for (const database of this.databases){
       for (const table of database.tables){
+        log(table)
         for (const variable of table.variables){
           let type_number = this.type_number.includes(variable.dtype)
           variable.type_number = type_number
           variable.type_text = !type_number
           variable.clean_name = variable.var_name
+          variable.nb_missing_clean = table.nb_row - variable.nb_row
         }
       }
     }
@@ -83,15 +86,11 @@ class Catalog{
     for (const database of this.databases){
       for (const table of database.tables){
         let nb_data = 0
-        let max_row = 0
         for (const variable of table.variables){
           nb_data += variable.nb_row
-          if(variable.nb_row > max_row) 
-            max_row = variable.nb_row
         }
         table.nb_data = nb_data
         table.nb_variable = table.variables.length
-        table.nb_row = max_row
         table.clean_name = table.table_name
       }
     }

@@ -66,8 +66,6 @@ class Data_loader():
       table_info.update_table_and_db_name(self.all_current_variables_path)
       table_info.create(versions)
 
-    table_info.save_to_all_tables(self.all_tables_path)
-
     database_info = Database_info(self.database_info_path, self.path_name)
     database_info.load_data()
     if not database_info.is_loaded():
@@ -102,6 +100,7 @@ class Data_loader():
       versions.data_updated[nb_iter]['data_date'] = version.data_date
       versions.data_updated[nb_iter]['data_last_modif'] = version.data_last_modif
       versions.data_updated[nb_iter]['meta_last_modif'] = version.meta_last_modif
+      versions.data_updated[nb_iter]['nb_row'] = len(version.data.index)
 
       vars_info = Vars_info(self.var_info_path)
       vars_info.update_data(version.data)
@@ -117,6 +116,7 @@ class Data_loader():
       if version.is_current:
         vars_meta.save_current_variables(self.current_variables_path)
         modalities_meta.save_current(self.current_modalities_path, version.data)
+        table_info.add_nb_row(len(version.data.index))
       
       vars_meta.save_historic_variables(self.historic_variables_path)
       modalities_meta.save_historic(self.historic_modalities_path)
@@ -124,6 +124,7 @@ class Data_loader():
     if versions.is_changed:
       versions.update()
     
+    table_info.save_to_all_tables(self.all_tables_path)
     self.is_changed = versions.is_changed
 
   def update_main_data(self):

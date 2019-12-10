@@ -47,4 +47,11 @@ class Table_info(Dataframe):
       all_tables_data = self.data
     io_file.save(path, all_tables_data)
     io_file.copy_excel_to_js(path, 'all_tables')
+
+  def add_nb_row(self, nb_row):
+    self.data['nb_row'] = nb_row
+    io_file.save(self.path, self.data)
+    io_file.adjust_excel_column_width(self.path)
+
+
     
