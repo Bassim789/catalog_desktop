@@ -24,8 +24,9 @@
   margin-top: 10px;
 }
 .database_description{
+  max-width: 800px;
   margin: 5px; 
-  white-space: pre;
+  white-space: pre-wrap;
 }
 
 
@@ -63,9 +64,10 @@
   margin-top: 7px;
 }
 .table_description{
+  max-width: 800px;
   margin: 5px; 
   margin-bottom: 20px; 
-  white-space: pre;
+  white-space: pre-wrap;
 }
 
 
