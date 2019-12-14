@@ -76,7 +76,7 @@
 }
 .variable_box{
   display: inline-block;
-  max-width: 400px;
+  max-width: 390px;
   margin: 5px 3px;
   padding: 5px;
   padding-bottom: 10px;
@@ -101,9 +101,10 @@
   text-align: right;
 }
 .variable_table td.variable_description{
-  text-align: left; 
+  text-align: center; 
   font-style: italic; 
   padding-bottom: 5px;
+  max-width: 260px
 }
 
 
@@ -116,20 +117,26 @@
   word-break: break-all;
 }
 .table_modalities td{
-  border-top: 1px solid #ddd;
+  
+}
+.table_modalities .percent_hidden{
+  visibility: 0;
 }
 .table_modalities .modality_value_wrap{
-  text-align: left; 
-  max-width: 180px;
+  text-align: right; 
+  max-width: 220px;
+}
+.table_modalities .modality_frequence_box_td{
+  width: 160px;
 }
 .table_modalities .modality_value{
-  text-align: left;
+  text-align: right;
   max-height: 20px;
-  max-width: 180px;
+  max-width: 220px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  float: left;
+  float: right;
 }
 .table_modalities .modality_value:hover{
   max-height: none;
@@ -138,21 +145,30 @@
 }
 .modality_frequence_box{
   position: relative;
-  width: 100%;
+  width: 160px;
+  float: right;
+}
+.modality_frequence_box .percent_value{
+  float: right;
+  text-align: right;
+  width: 60px;
 }
 .modality_frequence{
   position: absolute; 
   top: 0; 
-  left: 3px;
+  right: 3px;
   z-index: 2;
 }
+.modality_frequence .frequency{
+  float: right;
+}
 .modality_frequence_hidden{
-  margin-left: 3px;
+  margin-right: 3px;
   visibility: hidden;
   z-index: -2;
 }
 .percent_bar{
-  height: 20px;
+  height: 18px;
   background: rgba(24, 196, 8, 0.4);
   display: inline-block;
   float: left;

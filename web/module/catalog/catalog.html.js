@@ -35,18 +35,33 @@ template.catalog = `
               </td>
               <td>({{dtype}})</td>
             </tr>
-            <tr><td>{{nb_row_clean}}</td><td>rows</td></tr>
-            <tr><td>{{nb_missing_clean}}</td><td>missing</td></tr>
-            <tr><td>{{nb_distinct_clean}}</td><td>distinct</td></tr>
-            <tr><td>{{nb_duplicate_clean}}</td><td>duplicate</td></tr>
+            <tr><td>rows</td><td>{{nb_row_clean}}</td></tr>
+            <tr><td>missing</td><td>{{nb_missing_clean}}</td></tr>
+            <tr><td>distinct</td><td>{{nb_distinct_clean}}</td></tr>
+            <tr class="table_modalities">
+                  <td class="modality_value_wrap">
+                    <span class="modality_value">duplicate</span>
+                  </td>
+                  <td>
+                    <div class="modality_frequence_box">
+                      <div class="modality_frequence">
+                        <spon class="percent_value">nn.n%</spon> <span class="frequency">{{nb_duplicate_clean}}</span> 
+                      </div>
+                      <div class="modality_frequence_hidden">
+                        <spon class="percent_value">nn.n%</spon> <span class="frequency">{{nb_duplicate_clean}}</span> 
+                      </div>
+                      <div class="percent_bar" style="width: 77%;"></div>
+                    </div>
+                  </td>
+                </tr>
           </tbody>
 
           <!-- {{#type_number}} -->
           <tbody class="variable_number_info_section">
-            <tr><td>{{min_clean}}</td><td>min</td></tr>
-            <tr><td>{{mean_clean}}</td><td>mean</td></tr>
-            <tr><td>{{median_clean}}</td><td>median</td></tr>
-            <tr><td>{{max_clean}}</td><td>max</td></tr>
+            <tr><td>min</td><td>{{min_clean}}</td></tr>
+            <tr><td>mean</td><td>{{mean_clean}}</td></tr>
+            <tr><td>median</td><td>{{median_clean}}</td></tr>
+            <tr><td>max</td><td>{{max_clean}}</td></tr>
           </tbody>
           <!-- {{/type_number}} -->
 
@@ -54,26 +69,27 @@ template.catalog = `
             <tr>
               <td colspan="2">
                 <div class="modalities_box_name">frequent values</div>
-                <table class="table_modalities">
-                  <!-- {{#modalities}} -->
-                  <tr>
-                    <td class="modality_value_wrap">
-                      <span class="modality_value">{{value}}</span>
-                    </td>
-                    <td>
-                      <div class="modality_frequence_box">
-                        <div class="modality_frequence">
-                          {{nb}} ({{percent}}%)
-                        </div>
-                        <div class="modality_frequence_hidden">
-                          {{nb}} ({{percent}}%)
-                        </div>
-                        <div class="percent_bar" style="width: {{percent}}%"></div>
+               </td>
+              </tr>
+              <!-- {{#modalities}} -->
+                <tr class="table_modalities">
+                  <td class="modality_value_wrap">
+                    <span class="modality_value">{{value}}</span>
+                  </td>
+                  <td class="modality_frequence_box_td">
+                    <div class="modality_frequence_box">
+                      <div class="modality_frequence">
+                        <spon class="percent_value">{{percent}}%</spon> <span class="frequency">{{nb}}</span> 
                       </div>
-                    </td>
-                  </tr>
-                  <!-- {{/modalities}} -->
-                </table>
+                      <div class="modality_frequence_hidden">
+                        <spon class="percent_value">{{percent}}%</spon> <span class="frequency">{{nb}}</span> 
+                      </div>
+                      <div class="percent_bar" style="width: {{percent}}%"></div>
+                    </div>
+                  </td>
+                </tr>
+              <!-- {{/modalities}} -->
+             
               </td>
             </tr>
           </tbody>
