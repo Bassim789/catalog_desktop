@@ -4,8 +4,10 @@ template.selector = `
     <div id="select_db_box"></div>
     <div id="select_table_box"></div>
     <div id="select_variable_box"></div>
+    <div id="select_search_bar"></div>
   </div>
 </div>
+<div id="selection_boxes_space_shadow"></div>
 `;
 
 template.select_db = `
@@ -44,3 +46,10 @@ template.select_variable = `
   {{/db}}
 </select>
 `;
+
+template.search_bar = `
+<div class="search_bar_input_wrap">
+  <input id="search_bar_input" type="text" placeholder="Search...">
+</div>
+`;
+

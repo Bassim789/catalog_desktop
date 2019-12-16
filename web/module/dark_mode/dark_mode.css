@@ -3,13 +3,22 @@ body,
 .table_wrap,
 #selection_boxes,
 .variable_box,
-.chosen-container-single .chosen-single,
+.chosen-container-single:not(.chosen-with-drop) .chosen-single,
 .chosen-container .chosen-drop,
-.percent_bar{
+.percent_bar,
+#search_bar_input
+{
   color: #666;
   -webkit-transition: .4s;
   transition: .4s;
 }
+
+.chosen-container-single,
+.chosen-container-single .chosen-single{
+  color: #666;
+  background-image: none !important;
+}
+
 
 html.dark,
 html.dark body{
@@ -26,7 +35,9 @@ html.dark .chosen-container-single .chosen-single,
 html.dark .chosen-container .chosen-drop,
 html.dark .chosen-container .chosen-results,
 html.dark .chosen-container .no-results,
-html.dark .chosen-container input{
+html.dark .chosen-container input,
+html.dark #search_bar_input
+{
   color: #eee;
   background: #333;
 }

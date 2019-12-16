@@ -4,6 +4,7 @@ class Catalog{
   }
   append_to_body(){
     $('body').append('<div id="catalog"></div>')
+    this.actions()
   }
   load(all_variables){
     let databases = {}
@@ -71,13 +72,24 @@ class Catalog{
   set_variables(){
     for (const database of this.databases){
       for (const table of database.tables){
-        log(table)
+        //log(table)
         for (const variable of table.variables){
           let type_number = this.type_number.includes(variable.dtype)
           variable.type_number = type_number
           variable.type_text = !type_number
           variable.clean_name = variable.var_name
-          variable.nb_missing_clean = table.nb_row - variable.nb_row
+          variable.nb_missing = table.nb_row - variable.nb_row
+          variable.nb_row = table.nb_row
+          variable.nb_missing_clean = variable.nb_missing
+          variable.percent_duplicate = Math.round(variable.nb_duplicate / variable.nb_row * 1000) / 10
+          variable.percent_distinct = Math.round(variable.nb_distinct / variable.nb_row * 1000) / 10
+          variable.percent_missing = Math.round(variable.nb_missing / variable.nb_row * 1000) / 10
+          if(variable.mean > 1){
+            variable.mean = Math.round(variable.mean)
+          }
+          if(variable.median > 1){
+            variable.median = Math.round(variable.median)
+          }
         }
       }
     }
@@ -145,21 +157,66 @@ class Catalog{
       const db_copy = {...database}
       db_copy.tables = []
 
-      for (const table of database.tables){
-        if(table_selected !== '' && table_selected !== table.table_name) continue
+      if(db_selected !== ''){
+        for (const table of database.tables){
+          if(table_selected !== '' && table_selected !== table.table_name) continue
 
-        const table_copy = {...table}
-        table_copy.variables = []
+          const table_copy = {...table}
+          table_copy.variables = []
 
-        for (const variable of table.variables){
-          if(variable_selected !== '' && variable_selected !== variable.var_name) continue
+          if(table_selected !== ''){
+            for (const variable of table.variables){
+              if(variable_selected !== '' && variable_selected !== variable.var_name) continue
 
-          table_copy.variables.push(variable)
+              table_copy.variables.push(variable)
+            }
+          }
+          db_copy.tables.push(table_copy)  
         }
-        db_copy.tables.push(table_copy)  
       }
       databases.push(db_copy)
     }
     template.render('#catalog', 'catalog', {databases})
+    $('.database_description, .table_description').readmore({
+      collapsedHeight: 50,
+      speed: 200,
+      moreLink: '<a href="#" class="readmore_btn">Read more...</a>',
+      lessLink: '<a href="#" class="readless_btn">Read less.</a>'
+    })
+  }
+  actions(){
+    $('body').on('click', '.database_box .database_name', function() {
+      const database_name = $(this).html().trim()
+      if(selector.boxes.db.selection === ''){
+        selector.boxes.db.selection = database_name
+      } else {
+        selector.boxes.db.selection = ''
+      }
+      selector.boxes.table.selection = ''
+      selector.boxes.variable.selection = ''
+      selector.set_params()
+      selector.update_boxes()
+    })
+    $('body').on('click', '.table_box .table_name', function() {
+      const table_name = $(this).html().trim()
+      if(selector.boxes.table.selection === ''){
+        selector.boxes.table.selection = table_name
+      } else {
+        selector.boxes.table.selection = ''
+      }
+      selector.boxes.variable.selection = ''
+      selector.set_params()
+      selector.update_boxes()
+    })
+    $('body').on('click', '.variable_box .variable_name', function() {
+      const variable_name = $(this).html().trim()
+      if(selector.boxes.variable.selection === ''){
+        selector.boxes.variable.selection = variable_name
+      } else {
+        selector.boxes.variable.selection = ''
+      }
+      selector.set_params()
+      selector.update_boxes()
+    })
   }
 }
