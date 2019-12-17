@@ -42,6 +42,8 @@ class Catalog{
               || table.table_name != table_data.table_name) continue
           table.description = table_data.description
           table.nb_row = table_data.nb_row
+          table.table_last_modif_readable = date_time_readable(table_data.table_last_modif_readable)
+          table.table_file_path = table_data.table_file_path
         }
       }
     }
@@ -59,15 +61,26 @@ class Catalog{
       for (const table of database.tables){
         for (const variable of table.variables){
           variable.modalities = []
+          let modality_count = 0
           for (const modality of Object.values(modalities)){
             if( modality.table !== database.db_name + '/' + table.table_name 
                 || modality.var_name !== variable.var_name)
               continue
+            modality_count += 1
+            modality.visible = modality_count < 4 ? true : false
+            modality.more_modalities = modality_count === 4 ? true : false
+
             variable.modalities.push(modality)
           }
         }
       }
     }
+  }
+  round(value){
+    if(value > 10) value = Math.round(value)
+    else if(value > 1) value = Math.round(value * 10) / 10
+    else if(value > 0.1) value = Math.round(value * 100) / 100
+    return value
   }
   set_variables(){
     for (const database of this.databases){
@@ -84,12 +97,50 @@ class Catalog{
           variable.percent_duplicate = Math.round(variable.nb_duplicate / variable.nb_row * 1000) / 10
           variable.percent_distinct = Math.round(variable.nb_distinct / variable.nb_row * 1000) / 10
           variable.percent_missing = Math.round(variable.nb_missing / variable.nb_row * 1000) / 10
-          if(variable.mean > 1){
-            variable.mean = Math.round(variable.mean)
+          variable.coeff_variation = Math.round(variable.standard_deviation / variable.mean * 1000) / 10
+          
+          variable.mean = this.round(variable.mean)
+          variable.median = this.round(variable.median)
+          variable.standard_deviation = this.round(variable.standard_deviation)
+
+          variable.min = this.round(variable.min)
+          variable.quantile_25 = this.round(variable.quantile_25)
+          variable.median = this.round(variable.median)
+          variable.quantile_75 = this.round(variable.quantile_75)
+          variable.max = this.round(variable.max)
+
+          variable.max_percent = 100
+          if(variable.max === 0){
+            variable.min_percent = 100
+            variable.quantile_25_percent = 100
+            variable.median_percent = 100
+            variable.quantile_75_percent = 100
+          } else{
+            if(variable.min === 0) variable.min_percent = 0
+            if(variable.quantile_25 === 0) variable.quantile_25_percent = 0
+            if(variable.median === 0) variable.median_percent = 0
+            if(variable.quantile_75 === 0) variable.quantile_75_percent = 0
+            if(variable.max === 0) variable.max_percent = 0
           }
-          if(variable.median > 1){
-            variable.median = Math.round(variable.median)
+          
+          if(variable.min > 0) {
+            const min_percent = Math.min(variable.min / Math.max(variable.max, 1), 100)
+            variable.min_percent = Math.round(min_percent * 1000) / 10
           }
+          if(variable.quantile_25 > 0) {
+            const quantile_25_percent = Math.min(variable.quantile_25 / Math.max(variable.max, 1), 100)
+            variable.quantile_25_percent = Math.round(quantile_25_percent * 1000) / 10
+          }
+          if(variable.median > 0) {
+            const median_percent = Math.min(variable.median / Math.max(variable.max, 1), 100)
+            variable.median_percent = Math.round(median_percent * 1000) / 10
+          }
+          if(variable.quantile_75 > 0) {
+            const quantile_75_percent = Math.min(variable.quantile_75 / Math.max(variable.max, 1), 100)
+            variable.quantile_75_percent = Math.round(quantile_75_percent * 1000) / 10
+          }
+
+          variable.is_data = variable.nb_row - variable.nb_missing > 0 ? true : false
         }
       }
     }
@@ -132,9 +183,13 @@ class Catalog{
           variable.nb_distinct_clean = variable.nb_distinct.toLocaleString()
           variable.nb_duplicate_clean = variable.nb_duplicate.toLocaleString()
           variable.min_clean = variable.min.toLocaleString()
+          variable.quantile_25_clean = variable.quantile_25.toLocaleString()
           variable.mean_clean = variable.mean.toLocaleString()
           variable.median_clean = variable.median.toLocaleString()
+          variable.quantile_75_clean = variable.quantile_75.toLocaleString()
           variable.max_clean = variable.max.toLocaleString()
+          variable.standard_deviation_clean = variable.standard_deviation.toLocaleString()
+          variable.coeff_variation_clean = variable.coeff_variation.toLocaleString()
         }
         table.nb_data_clean = table.nb_data.toLocaleString()
         table.nb_variable_clean = table.nb_variable.toLocaleString()
@@ -180,8 +235,8 @@ class Catalog{
     $('.database_description, .table_description').readmore({
       collapsedHeight: 50,
       speed: 200,
-      moreLink: '<a href="#" class="readmore_btn">Read more...</a>',
-      lessLink: '<a href="#" class="readless_btn">Read less.</a>'
+      moreLink: '<a href="#" class="readmore_btn">Suite...</a>',
+      lessLink: '<a href="#" class="readless_btn">Réduire...</a>'
     })
   }
   actions(){
@@ -217,6 +272,17 @@ class Catalog{
       }
       selector.set_params()
       selector.update_boxes()
+    })
+    $('body').on('click', '.btn_show_more', function(){
+      let table_modalities = $(this).parent().parent().parent()
+      table_modalities.find('.modality_hidden').show()
+      table_modalities.parent().parent().find('.show_less_modality').show()
+      $(this).hide()
+    })
+    $('body').on('click', '.show_less_modality', function(){
+      $(this).parent().parent().parent().find('.modality_hidden').hide()
+      $(this).parent().parent().parent().find('.btn_show_more').show()
+      $(this).hide()
     })
   }
 }

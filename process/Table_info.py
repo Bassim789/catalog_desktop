@@ -1,5 +1,6 @@
 from Dataframe import Dataframe
 from log import log
+import os.path, time
 from IO_file import IO_file
 io_file = IO_file()
 
@@ -12,11 +13,14 @@ class Table_info(Dataframe):
     
   def create(self, versions):
     nb_versions = len(versions.data)
+    file_path = versions.data['path'].iloc[0]
     data = [{
       'db_name': self.db_name, 
       'table_name': self.table_name,
       'nb_versions': nb_versions,
-      'description': "Description of table " + self.table_name
+      'description': "Description of table " + self.table_name,
+      'table_last_modif_readable': os.path.getmtime(file_path),
+      'table_file_path': file_path
     }]
     io_file.save(self.path, io_file.dict_to_dataframe(data))
     io_file.adjust_excel_column_width(self.path)

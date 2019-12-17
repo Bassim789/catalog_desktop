@@ -43,9 +43,12 @@ class Vars_meta():
 
   def add_number_stat(self, data, var):
     data['min'] = Number.clean_num(var.min())
+    data['quantile_25'] = Number.clean_num(var.quantile(.25))
     data['mean'] = Number.clean_num(var.mean())
     data['median'] = Number.clean_num(var.median())
+    data['quantile_75'] = Number.clean_num(var.quantile(.75))
     data['max'] = Number.clean_num(var.max())
+    data['standard_deviation'] = Number.clean_num(var.std())
     return data
 
   def add_vars_info(self, data, vars_info):

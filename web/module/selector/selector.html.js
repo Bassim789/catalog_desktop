@@ -11,7 +11,7 @@ template.selector = `
 `;
 
 template.select_db = `
-<select data-placeholder="{{nb_item_clean}} databases" class="chosen-select">
+<select data-placeholder="{{nb_item_clean}} dossiers" class="chosen-select">
   <option></option>
   {{#db}}
     <option value="{{db_clean_name}}">{{db_clean_name}}</option> 
@@ -49,7 +49,7 @@ template.select_variable = `
 
 template.search_bar = `
 <div class="search_bar_input_wrap">
-  <input id="search_bar_input" type="text" placeholder="Search...">
+  <input id="search_bar_input" type="text" placeholder="Rechercher...">
 </div>
 `;
 

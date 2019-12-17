@@ -10,6 +10,7 @@
   max-width: 800px;
   display: inline-block; 
   margin-top: 20px;
+  box-shadow: 0px 2px rgba(150,150,150,0.2);
 }
 .database_box .database_name{
   display: inline-block; 
@@ -17,6 +18,7 @@
   margin: 5px; 
   font-size: 20px; 
   font-weight: bold;
+  min-width: 300px;
 }
 .database_box .database_name:hover,
 .table_box .table_name:hover,
@@ -28,6 +30,7 @@
   display: inline-block; 
   float: right;
   margin: 5px; 
+  margin-right: 0;
   margin-top: 10px;
 }
 .database_description{
@@ -41,10 +44,10 @@
   
 }
 .table_wrap{
-  margin-left: 20px;
+  margin-left: 11px;
   margin-top: 20px;
   display: inline-block; 
-  width: calc(100% - 20px);
+  max-width: calc(100% - 20px);
   border-radius: 20px;
   padding: 5px;
   -webkit-box-sizing: border-box;
@@ -64,13 +67,14 @@
   margin: 5px;
   font-size: 18px;
   font-weight: bold;
+  min-width: 270px;
 }
 .table_info{
   display: inline-block;
   float: right;
   margin: 5px;
   margin-top: 7px;
-  margin-right: 35px;
+  margin-right: 20px;
 }
 .table_description{
   margin: 5px; 
@@ -85,7 +89,7 @@
 }
 .variable_box{
   display: inline-block;
-  max-width: 390px;
+  max-width: 430px;
   margin: 5px 3px;
   padding: 5px;
   padding-bottom: 10px;
@@ -137,7 +141,7 @@
   max-width: 220px;
 }
 .table_modalities .modality_frequence_box_td{
-  width: 160px;
+  width: 200px;
 }
 .table_modalities .modality_value{
   text-align: right;
@@ -155,13 +159,16 @@
 }
 .modality_frequence_box{
   position: relative;
-  width: 160px;
+  width: 200px;
   float: right;
 }
 .modality_frequence_box .percent_value{
   float: right;
   text-align: right;
   width: 60px;
+}
+.modality_frequence_box:hover {
+  background: rgba(150,150,150, 0.3);
 }
 .modality_frequence{
   position: absolute; 
@@ -194,4 +201,63 @@
   text-decoration: none;
   padding-left: 5px;
   color: #999;
+}
+
+
+.table_file{
+  display: inline-block;
+}
+.table_file_info{
+  min-width: 300px;
+}
+.table_file_info td{
+  padding: 2px 5px;
+}
+.table_box .break{
+  word-break: break-all;
+  font-size: 12px;
+  max-width: 400px;
+  margin: 5px;
+  margin-bottom: 10px;
+}
+.table_file_link{
+  color: #999;
+}
+
+.table_file_last_modif{
+  float: right;
+  margin-right: 15px;
+  text-align: right;
+}
+
+
+.modality_hidden{
+  display: none;
+}
+
+.btn_show_more{
+  width: 100%; 
+  cursor: pointer;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: #999;
+}
+.show_less_modality{
+  display: none;
+  width: 100%; 
+  cursor: pointer;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: #999;
+}
+
+.variable_number_mean_section{
+  border-top: 10px solid transparent;
+}
+
+.btn_show_more:active,
+.show_less_modality:active{
+  /*background: rgba(150,150,150, 0.2);*/
 }
