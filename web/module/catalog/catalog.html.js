@@ -36,7 +36,9 @@ template.catalog = `
 
           <tbody class="variable_main_info_section">
             <tr><th colspan="2"><span class="variable_name">{{var_name}}</span></th></tr>
-            <tr><td class="variable_description" colspan="2">{{description}}</td></tr>
+            <tr><td class="variable_description" colspan="2">
+              <div class="variable_description_content">{{description}}</div>
+            </td></tr>
             <tr>
               <td colspan="2" style="text-align: center;">
                 {{#type_number}}Nombre{{/type_number}} {{#type_text}}Texte{{/type_text}}

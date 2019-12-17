@@ -69,7 +69,10 @@ class Catalog{
             modality_count += 1
             modality.visible = modality_count < 4 ? true : false
             modality.more_modalities = modality_count === 4 ? true : false
-
+            if(!variable.type_number){
+              modality.visible = true
+              modality.more_modalities = false
+            }
             variable.modalities.push(modality)
           }
         }
