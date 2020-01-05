@@ -5,6 +5,7 @@ from Version import Version
 from Vars_info import Vars_info 
 from Vars_meta import Vars_meta
 from Modalities_meta import Modalities_meta
+from Correlation_info import Correlation_info
 from IO_file import IO_file
 from log import log
 
@@ -17,6 +18,7 @@ class Data_loader():
     self.all_tables_path = catalog_data_path + '../all/tables.xlsx'
     self.all_databases_path = catalog_data_path + '../all/databases.xlsx'
     self.all_current_modalities_path = catalog_data_path + '../all/current_modalities.xlsx'
+    self.all_correlation_path = catalog_data_path + '../all/correlation.xlsx'
 
   def set_path(self, path_name):
     log('checking', path_name)
@@ -30,6 +32,7 @@ class Data_loader():
     self.current_variables_path = self.path + 'current_variables.xlsx'
     self.historic_modalities_path = self.path + 'historic_modalities.xlsx'
     self.current_modalities_path = self.path + 'current_modalities.xlsx'
+    self.correlation_info_path = self.path + 'correlation_info.xlsx'
     self.files = [
       self.versions_path,
       self.var_info_path,
@@ -112,6 +115,10 @@ class Data_loader():
       vars_meta.get_vars_data(vars_info.data, version.data)
 
       modalities_meta = Modalities_meta()
+
+      correlation_info = Correlation_info(self.correlation_info_path, self.path_name)
+      correlation_info.load_data()
+      correlation_info.correlation_num_num(version.data)
 
       if version.is_current:
         vars_meta.save_current_variables(self.current_variables_path)

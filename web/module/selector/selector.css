@@ -14,7 +14,6 @@
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
   text-align: center;
   z-index: 3;
 }
@@ -78,10 +77,8 @@
   #selection_boxes_space_shadow{
     height: 50px;
   }
-}
-@media screen and (max-width: 440px) {
-  #selection_boxes_space_shadow{
-    height: 150px;
+  #selection_boxes_space_shadow,
+  #selection_boxes_wrapper{
+    display: none;
   }
 }
-

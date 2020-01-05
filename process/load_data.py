@@ -4,10 +4,13 @@ import sys
 from pathlib import Path
 from Data_loader import Data_loader
 
-clear_data = len(sys.argv) > 1 and sys.argv[1] == 'clear_data'
+clear_data = 'clear_data' in sys.argv
+data_path = 'data/'
+if 'data_public' in sys.argv:
+  data_path = 'data_public/'
 
 catalog_path = os.path.realpath(__file__).rsplit('/', 2)[0] + '/'
-data_path = catalog_path + 'data/databases/'
+data_path = catalog_path + data_path + 'databases/'
 data_loader = Data_loader(data_path)
 
 if clear_data: 

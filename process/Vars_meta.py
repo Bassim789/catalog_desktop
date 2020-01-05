@@ -28,7 +28,7 @@ class Vars_meta():
     self.data = dataframe
 
   def init_var_data(self, var):
-    data = {
+    data = { 
       'var_name': '',
       'description': '',
       'var_name_origin': self.var_name_origin,

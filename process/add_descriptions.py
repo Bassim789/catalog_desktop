@@ -1,8 +1,15 @@
 import os
+import sys
 from IO_file import IO_file
 import pandas
 
 io_file = IO_file()
+
+
+data_path = 'data/'
+if 'data_public' in sys.argv:
+  data_path = 'data_public/'
+
 
 def add_description(path, description_path):
   data_type = path.rsplit('/', 1)[1][:-5]
@@ -27,34 +34,34 @@ def add_description(path, description_path):
 
 
 add_description(
-  "/Users/bassim/Documents/github/catalog_desktop/data/databases/open_data/geneve/batiment/variable.xlsx",
+  "/Users/bassim/Documents/catalog/" + data_path + "databases/open_data/geneve/batiment/variable.xlsx",
   "/Users/bassim/Documents/dr/data/open_data/open_data_swiss/geneve/CSV_OCS_BATLOG_SSECTEUR/variables_description.xlsx"
 )
 add_description(
-  "/Users/bassim/Documents/github/catalog_desktop/data/databases/open_data/geneve/batiment/table.xlsx",
+  "/Users/bassim/Documents/catalog/" + data_path + "databases/open_data/geneve/batiment/table.xlsx",
   "/Users/bassim/Documents/dr/data/open_data/open_data_swiss/geneve/CSV_OCS_BATLOG_SSECTEUR/table_description.xlsx"
 )
 
 add_description(
-  "/Users/bassim/Documents/github/catalog_desktop/data/databases/open_data/geneve/accident/variable.xlsx",
+  "/Users/bassim/Documents/catalog/" + data_path + "databases/open_data/geneve/accident/variable.xlsx",
   "/Users/bassim/Documents/dr/data/open_data/open_data_swiss/geneve/CSV_OTC_ACCIDENTS/variables_description.xlsx"
 )
 add_description(
-  "/Users/bassim/Documents/github/catalog_desktop/data/databases/open_data/geneve/accident/table.xlsx",
+  "/Users/bassim/Documents/catalog/" + data_path + "databases/open_data/geneve/accident/table.xlsx",
   "/Users/bassim/Documents/dr/data/open_data/open_data_swiss/geneve/CSV_OTC_ACCIDENTS/table_description.xlsx"
 )
 
 add_description(
-  "/Users/bassim/Documents/github/catalog_desktop/data/databases/open_data/geneve/batiment_depense_chaleur/variable.xlsx",
+  "/Users/bassim/Documents/catalog/" + data_path + "databases/open_data/geneve/batiment_depense_chaleur/variable.xlsx",
   "/Users/bassim/Documents/dr/data/open_data/open_data_swiss/geneve/CSV_SCANE_INDICE_DERNIER_2/variables_description.xlsx"
 )
 add_description(
-  "/Users/bassim/Documents/github/catalog_desktop/data/databases/open_data/geneve/batiment_depense_chaleur/table.xlsx",
+  "/Users/bassim/Documents/catalog/" + data_path + "databases/open_data/geneve/batiment_depense_chaleur/table.xlsx",
   "/Users/bassim/Documents/dr/data/open_data/open_data_swiss/geneve/CSV_SCANE_INDICE_DERNIER_2/table_description.xlsx"
 )
 
 
 add_description(
-  "/Users/bassim/Documents/github/catalog_desktop/data/databases/open_data/geneve/database.xlsx",
+  "/Users/bassim/Documents/catalog/" + data_path + "databases/open_data/geneve/database.xlsx",
   "/Users/bassim/Documents/dr/data/open_data/open_data_swiss/geneve/database_description.xlsx"
 )

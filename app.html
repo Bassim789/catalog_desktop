@@ -1,40 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Data Catalog</title>
+  <title>Catalogue de données</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-
-  <script src="web/lib/jquery.min.js"></script>
-  <script src="web/lib/mustache.min.js"></script>
-  <script src="web/lib/chosen/chosen.jquery.min.js"></script>
-  <link href="web/lib/chosen/chosen.min.css" rel="stylesheet">
-  <script src="web/lib/readmore/readmore.min.js"></script>
-  <script src="web/lib/timer/Timer.js"></script>
-
-  <link href="web/main.css" rel="stylesheet">
-  <script src="web/module/utils.js"></script>
-  <script src="web/module/Url_params.js"></script>
-  
-  <link href="web/module/dark_mode/dark_mode.css" rel="stylesheet">
-  <link href="web/module/dark_mode/dark_mode_slider.css" rel="stylesheet">
-  <script src="web/module/dark_mode/dark_mode.js"></script>
-  <script src="web/module/dark_mode/dark_mode.html.js"></script>
-
-  <link href="web/module/selector/selector.css" rel="stylesheet">
-  <script src="web/module/selector/selector.js"></script>
-  <script src="web/module/selector/selector.html.js"></script>
-  
-  <link href="web/module/catalog/catalog.css" rel="stylesheet">
-  <script src="web/module/catalog/catalog.js"></script>
-  <script src="web/module/catalog/catalog.html.js"></script>
-
-  <script src="data/all/current_modalities.js"></script>
-  <script src="data/all/current_variables.js"></script>
-  <script src="data/all/tables.js"></script>
-  <script src="data/all/databases.js"></script>
+  <meta name="theme-color" content="#ffffff" id="meta_theme_color">
+  <script src="web/module/load.js"></script>
+  <script>
+    loader = new Loader({version: 4})
+    loader.load('web/', ['main.css'])
+    loader.load('web/lib/', [
+      'jquery.min.js',
+      'mustache.min.js',
+      'readmore/readmore.min.js',
+      'timer/Timer.js'
+    ])
+    loader.load('web/lib/chosen/chosen', ['.jquery.min.js', '.min.css'])
+    loader.load('web/module/', ['utils.js', 'Url_params.js'])
+    loader.load('web/module/dark_mode/dark_mode', ['.css', '_slider.css', '.js', '.html.js'])
+    loader.load('web/module/selector/selector', ['.css', '.js', '.html.js'])
+    loader.load('web/module/catalog/catalog', ['.css', '.js', '.html.js'])
+    loader.load('data/all/', [
+      'current_modalities.js',
+      'current_variables.js',
+      'tables.js',
+      'databases.js'
+    ])
+    loader.load('web/', ['app.js'])
+  </script>
 </head>
-<body>
-  <script src="web/app.js"></script>
-</body>
+<body></body>
 </html>

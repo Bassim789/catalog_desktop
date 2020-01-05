@@ -89,7 +89,10 @@ class Catalog{
     for (const database of this.databases){
       for (const table of database.tables){
         //log(table)
+        let variable_order_num = 0
         for (const variable of table.variables){
+          variable_order_num += 1
+          variable.order_num = variable_order_num
           let type_number = this.type_number.includes(variable.dtype)
           variable.type_number = type_number
           variable.type_text = !type_number
@@ -112,36 +115,29 @@ class Catalog{
           variable.quantile_75 = this.round(variable.quantile_75)
           variable.max = this.round(variable.max)
 
+          variable.min_percent = 0
           variable.max_percent = 100
           if(variable.max === 0){
-            variable.min_percent = 100
             variable.quantile_25_percent = 100
             variable.median_percent = 100
             variable.quantile_75_percent = 100
           } else{
-            if(variable.min === 0) variable.min_percent = 0
             if(variable.quantile_25 === 0) variable.quantile_25_percent = 0
             if(variable.median === 0) variable.median_percent = 0
             if(variable.quantile_75 === 0) variable.quantile_75_percent = 0
-            if(variable.max === 0) variable.max_percent = 0
           }
-          
-          if(variable.min > 0) {
-            const min_percent = Math.min(variable.min / Math.max(variable.max, 1), 100)
-            variable.min_percent = Math.round(min_percent * 1000) / 10
-          }
-          if(variable.quantile_25 > 0) {
-            const quantile_25_percent = Math.min(variable.quantile_25 / Math.max(variable.max, 1), 100)
-            variable.quantile_25_percent = Math.round(quantile_25_percent * 1000) / 10
-          }
-          if(variable.median > 0) {
-            const median_percent = Math.min(variable.median / Math.max(variable.max, 1), 100)
-            variable.median_percent = Math.round(median_percent * 1000) / 10
-          }
-          if(variable.quantile_75 > 0) {
-            const quantile_75_percent = Math.min(variable.quantile_75 / Math.max(variable.max, 1), 100)
-            variable.quantile_75_percent = Math.round(quantile_75_percent * 1000) / 10
-          }
+
+          const diff = variable.max - variable.min
+
+          const quantile_25_percent = (variable.quantile_25 - variable.min) / diff
+          variable.quantile_25_percent = Math.round(quantile_25_percent * 1000) / 10
+        
+          const median_percent = (variable.median - variable.min) / diff
+          variable.median_percent = Math.round(median_percent * 1000) / 10
+        
+          const quantile_75_percent = (variable.quantile_75 - variable.min) / diff
+          variable.quantile_75_percent = Math.round(quantile_75_percent * 1000) / 10
+   
 
           variable.is_data = variable.nb_row - variable.nb_missing > 0 ? true : false
         }
@@ -216,6 +212,7 @@ class Catalog{
       db_copy.tables = []
 
       if(db_selected !== ''){
+        db_copy.db_selected = true
         for (const table of database.tables){
           if(table_selected !== '' && table_selected !== table.table_name) continue
 
@@ -223,59 +220,90 @@ class Catalog{
           table_copy.variables = []
 
           if(table_selected !== ''){
+            table_copy.show_table_index = true
+            table_copy.table_selected = true
             for (const variable of table.variables){
               if(variable_selected !== '' && variable_selected !== variable.var_name) continue
-
+              variable.variable_selected = variable_selected !== ''
+              if(variable.variable_selected){
+                table_copy.show_table_index = false
+              }
               table_copy.variables.push(variable)
             }
           }
-          db_copy.tables.push(table_copy)  
+          db_copy.tables.push(table_copy) 
         }
       }
       databases.push(db_copy)
     }
     template.render('#catalog', 'catalog', {databases})
-    $('.database_description, .table_description').readmore({
-      collapsedHeight: 50,
-      speed: 200,
+
+    new Readmore('.database_description, .table_description', {
+      collapsedHeight: 35,
+      speed: 300,
+      moreLink: '<a href="#" class="readmore_btn">Suite...</a>',
+      lessLink: '<a href="#" class="readless_btn">Réduire...</a>'
+    })
+
+    new Readmore('.variables_simple_listing', {
+      collapsedHeight: 100,
+      speed: 300,
       moreLink: '<a href="#" class="readmore_btn">Suite...</a>',
       lessLink: '<a href="#" class="readless_btn">Réduire...</a>'
     })
   }
   actions(){
-    $('body').on('click', '.database_box .database_name', function() {
-      const database_name = $(this).html().trim()
-      if(selector.boxes.db.selection === ''){
-        selector.boxes.db.selection = database_name
-      } else {
-        selector.boxes.db.selection = ''
-      }
+    $('body').on('click', '.database_box .database_name.clickable', function() {
+      const database_name = $(this).html().trim()  
+      selector.boxes.db.selection = database_name
       selector.boxes.table.selection = ''
       selector.boxes.variable.selection = ''
       selector.set_params()
       selector.update_boxes()
     })
-    $('body').on('click', '.table_box .table_name', function() {
-      const table_name = $(this).html().trim()
-      if(selector.boxes.table.selection === ''){
-        selector.boxes.table.selection = table_name
-      } else {
-        selector.boxes.table.selection = ''
-      }
+    $('body').on('click', '.database_box .database_close_btn', function() {
+      const database_name = $(this).html().trim()
+      selector.boxes.db.selection = ''
+      selector.boxes.table.selection = ''
       selector.boxes.variable.selection = ''
       selector.set_params()
       selector.update_boxes()
     })
-    $('body').on('click', '.variable_box .variable_name', function() {
-      const variable_name = $(this).html().trim()
-      if(selector.boxes.variable.selection === ''){
-        selector.boxes.variable.selection = variable_name
-      } else {
-        selector.boxes.variable.selection = ''
-      }
+
+    $('body').on('click', '.table_box .table_name.clickable', function() {
+      const table_name = $(this).html().trim()
+      selector.boxes.table.selection = table_name
+      selector.boxes.variable.selection = ''
       selector.set_params()
       selector.update_boxes()
     })
+    $('body').on('click', '.table_box .table_close_btn', function() {
+      const table_name = $(this).html().trim()
+      selector.boxes.table.selection = ''
+      selector.boxes.variable.selection = ''
+      selector.set_params()
+      selector.update_boxes()
+    })
+
+    $('body').on('click', '.variable_box .variable_name.clickable', function() {
+      const variable_name = $(this).html().trim()
+      selector.boxes.variable.selection = variable_name
+      selector.set_params()
+      selector.update_boxes()
+    })
+    $('body').on('click', '.variables_simple_listing_row', function() {
+      const variable_name = $(this).find('.variables_simple_listing_var_name').html().trim()
+      selector.boxes.variable.selection = variable_name
+      selector.set_params()
+      selector.update_boxes()
+    })
+    $('body').on('click', '.variable_box .variable_close_btn', function() {
+      const variable_name = $(this).html().trim()
+      selector.boxes.variable.selection = ''
+      selector.set_params()
+      selector.update_boxes()
+    })
+
     $('body').on('click', '.btn_show_more', function(){
       let table_modalities = $(this).parent().parent().parent()
       table_modalities.find('.modality_hidden').show()

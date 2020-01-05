@@ -33,12 +33,21 @@ class Selector{
         this.boxes[key].selection = name
         const select_id = '#select_' + key + '_box .chosen-select'
         $(select_id).val(name).trigger('chosen:updated')
-      } 
+      } else {
+        this.boxes[key].selection = ''
+      }
+    }
+    if('v' in params){
+      const variable_path = decodeURI(params['v'])
+      //console.log('variable_path:', variable_path)
     }
   }
   set_params(){
-    for(const [key, item] of Object.entries(this.boxes))
-      url_params.set_param(key, item.selection)
+    let params = {}
+    for(const [key, item] of Object.entries(this.boxes)){
+      params[key] = item.selection
+    }
+    url_params.set_params(params)
   }
   update_boxes(){
     const db_selected = this.boxes.db.selection
@@ -145,5 +154,9 @@ class Selector{
       this.set_params()
       this.update_boxes()
     })
+    window.onpopstate = () => {
+      this.init_selection_from_params()
+      this.update_boxes()
+    }
   }
 }
