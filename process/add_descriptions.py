@@ -65,3 +65,44 @@ add_description(
   "/Users/bassim/Documents/catalog/" + data_path + "databases/open_data/geneve/database.xlsx",
   "/Users/bassim/Documents/dr/data/open_data/open_data_swiss/geneve/database_description.xlsx"
 )
+
+
+# own system
+add_description(
+  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/tables/variable.xlsx",
+  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/tables/variable_descriptions.xlsx"
+)
+add_description(
+  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/databases/variable.xlsx",
+  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/databases/variable_descriptions.xlsx"
+)
+add_description(
+  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/current_variables/variable.xlsx",
+  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/current_variables/variable_descriptions.xlsx"
+)
+add_description(
+  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/current_modalities/variable.xlsx",
+  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/current_modalities/variable_descriptions.xlsx"
+)
+
+add_description(
+  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/tables/table.xlsx",
+  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/tables/table_description.xlsx"
+)
+add_description(
+  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/databases/table.xlsx",
+  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/databases/table_description.xlsx"
+)
+add_description(
+  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/current_variables/table.xlsx",
+  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/current_variables/table_description.xlsx"
+)
+add_description(
+  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/current_modalities/table.xlsx",
+  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/current_modalities/table_description.xlsx"
+)
+
+add_description(
+  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/database.xlsx",
+  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/database_description.xlsx"
+)
