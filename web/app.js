@@ -15,6 +15,7 @@
   catalog.set_databases()
   catalog.add_modalities_data(all_current_modalities)
   catalog.format_numbers()
+  catalog.prepare_view()
 
   selector.init_selection_from_params()
   selector.set_catalog_data(catalog.databases)

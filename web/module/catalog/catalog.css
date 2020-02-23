@@ -123,8 +123,6 @@
   margin: auto;
   border-collapse: collapse;
 }
-.variable_number_info_section,
-.variable_modalities_info_section,
 .variable_rows_section{
   border-top: 10px solid transparent;
 }
@@ -222,7 +220,7 @@
   left: 0;
 }
 
-.percent_bar.bar_error{
+.percent_bar.percent_error_bar{
   background: rgba(227, 95, 59, 0.4);
 }
 

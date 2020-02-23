@@ -2,6 +2,7 @@ template.catalog = `
 
 {{#databases}}
 <div class="database_box">
+
   {{^db_selected}}
     <div class="database_name clickable">{{db_name}}</div>
   {{/db_selected}}
@@ -9,6 +10,7 @@ template.catalog = `
     <div class="database_name">{{db_name}}</div>
     <div class="database_close_btn"><div class="close"></div></div>
   {{/db_selected}}
+
   <div class="database_info">
     {{nb_table_clean}} tables | {{nb_variable_clean}} variables | {{nb_data_clean}} données
   </div>
@@ -21,6 +23,7 @@ template.catalog = `
     {{#tables}}
     <div class="table_wrap">
       <div class="table_box">
+
         {{^table_selected}}
           <div class="table_name clickable">{{table_name}}</div>
         {{/table_selected}}
@@ -28,6 +31,7 @@ template.catalog = `
           <div class="table_name">{{table_name}}</div>
           <div class="table_close_btn"><div class="close"></div></div>
         {{/table_selected}}
+
         <div class="table_info">
           {{nb_variable_clean}} variables | {{nb_row_clean}} lignes | {{nb_data_clean}} données
         </div>
@@ -108,85 +112,38 @@ template.catalog = `
                 </tr>
               </tbody>
 
+
+              <!-- {{#table_section}} -->
               <tbody class="variable_rows_section">
+                <!-- {{#rows_info}} -->
                 <tr class="table_modalities">
                   <td class="modality_value_wrap">
-                    <span class="modality_value">lignes</span>
+                    <span class="modality_value">{{name}}</span>
                   </td>
                   <td>
                     <div class="modality_frequence_box">
                       <div class="modality_frequence">
-                        <spon class="percent_value" style="visibility: hidden;">100%</spon>
-                        <span class="frequency">{{nb_row_clean}}</span> 
+                        <!-- {{#hide_percent}} --> 
+                        <spon class="percent_value" style="visibility: hidden;">{{percent}}%</spon>
+                        <!-- {{/hide_percent}} --> 
+                        <!-- {{^hide_percent}} --> 
+                        <spon class="percent_value">{{percent}}%</spon>
+                        <!-- {{/hide_percent}} --> 
+                        <span class="frequency">{{nb_clean}}</span> 
                       </div>
                       <div class="modality_frequence_hidden">
-                        <spon class="percent_value">100%</spon>
-                        <span class="frequency">{{nb_row_clean}}</span> 
+                        <spon class="percent_value">{{percent}}%</spon>
+                        <span class="frequency">{{nb_clean}}</span> 
                       </div>
-                      <div class="percent_bar" style="width: 0%;"></div>
+                      <div class="percent_bar {{percent_error_bar}}" style="width: {{percent}}%;"></div>
                     </div>
                   </td>
                 </tr>
-
-                <tr class="table_modalities">
-                  <td class="modality_value_wrap">
-                    <span class="modality_value">manquants</span>
-                  </td>
-                  <td>
-                    <div class="modality_frequence_box">
-                      <div class="modality_frequence">
-                        <spon class="percent_value">{{percent_missing}}%</spon>
-                        <span class="frequency">{{nb_missing_clean}}</span> 
-                      </div>
-                      <div class="modality_frequence_hidden">
-                        <spon class="percent_value">{{percent_missing}}%</spon>
-                        <span class="frequency">{{nb_missing_clean}}</span> 
-                      </div>
-                      <div class="percent_bar bar_error" style="width: {{percent_missing}}%;"></div>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr class="table_modalities">
-                  <td class="modality_value_wrap">
-                    <span class="modality_value">distincts</span>
-                  </td>
-                  <td>
-                    <div class="modality_frequence_box">
-                      <div class="modality_frequence">
-                        <spon class="percent_value">{{percent_distinct}}%</spon>
-                        <span class="frequency">{{nb_distinct_clean}}</span> 
-                      </div>
-                      <div class="modality_frequence_hidden">
-                        <spon class="percent_value">{{percent_distinct}}%</spon>
-                        <span class="frequency">{{nb_distinct_clean}}</span> 
-                      </div>
-                      <div class="percent_bar" style="width: {{percent_distinct}}%;"></div>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr class="table_modalities">
-                  <td class="modality_value_wrap">
-                    <span class="modality_value">doublons</span>
-                  </td>
-                  <td>
-                    <div class="modality_frequence_box">
-                      <div class="modality_frequence">
-                        <spon class="percent_value">{{percent_duplicate}}%</spon>
-                        <span class="frequency">{{nb_duplicate_clean}}</span> 
-                      </div>
-                      <div class="modality_frequence_hidden">
-                        <spon class="percent_value">{{percent_duplicate}}%</spon>
-                        <span class="frequency">{{nb_duplicate_clean}}</span> 
-                      </div>
-                      <div class="percent_bar" style="width: {{percent_duplicate}}%;"></div>
-                    </div>
-                  </td>
-                </tr>
+                <!-- {{/rows_info}} -->
               </tbody>
+              <!-- {{/table_section}} -->
 
-              <tbody class="variable_modalities_info_section">
+              <tbody class="variable_rows_section">
                 <tr>
                   <td colspan="2">
                     <div class="modalities_box_name">valeurs fréquentes</div>
@@ -212,7 +169,7 @@ template.catalog = `
                           <div class="modality_frequence_hidden">
                             <spon class="percent_value">{{percent}}%</spon> <span class="frequency">{{nb}}</span> 
                           </div>
-                          <div class="percent_bar" style="width: {{percent}}%"></div>
+                          <div class="percent_bar" style="width: min(100%, {{percent}}%);"></div>
                         </div>
                       </td>
                     </tr>
@@ -238,143 +195,45 @@ template.catalog = `
 
               <!-- {{#type_number}} {{#is_data}} -->
 
-              <tbody class="variable_number_mean_section">
-                <tr class="table_modalities">
-                  <td class="modality_value_wrap">
-                    <span class="modality_value">moyenne</span>
-                  </td>
-                  <td>
-                    <div class="modality_frequence_box">
-                      <div class="modality_frequence">
-                        <spon class="percent_value" style="visibility: hidden;">100%</spon>
-                        <span class="frequency">{{mean_clean}}</span> 
-                      </div>
-                      <div class="modality_frequence_hidden">
-                        <spon class="percent_value">100%</spon>
-                        <span class="frequency">{{mean_clean}}</span> 
-                      </div>
-                      <div class="percent_bar" style="width: 0%;"></div>
-                    </div>
-                  </td>
-                </tr>
-                <tr class="table_modalities">
-                  <td class="modality_value_wrap">
-                    <span class="modality_value">écart-type</span>
-                  </td>
-                  <td>
-                    <div class="modality_frequence_box">
-                      <div class="modality_frequence">
-                        <spon class="percent_value">{{coeff_variation_clean}}%</spon>
-                        <span class="frequency">{{standard_deviation_clean}}</span> 
-                      </div>
-                      <div class="modality_frequence_hidden">
-                        <spon class="percent_value">{{coeff_variation_clean}}%</spon>
-                        <span class="frequency">{{standard_deviation_clean}}</span> 
-                      </div>
-                      <div class="percent_bar" style="width: min(100%, {{coeff_variation}}%);"></div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
+              <!-- {{#table_section_2}} -->
+              <tbody class="variable_rows_section">
 
-              <tbody class="variable_number_info_section">
+                <!-- {{#section_name}} -->
                 <tr>
                   <td colspan="2">
-                    <div class="modalities_box_name">quantiles</div>
+                    <div class="modalities_box_name">{{section_name}}</div>
                   </td>
                 </tr>
+                <!-- {{/section_name}} -->
 
+                <!-- {{#rows_info}} -->
                 <tr class="table_modalities">
                   <td class="modality_value_wrap">
-                    <span class="modality_value">min</span>
+                    <span class="modality_value">{{name}}</span>
                   </td>
                   <td>
                     <div class="modality_frequence_box">
                       <div class="modality_frequence">
-                        <spon class="percent_value">{{min_percent}}%</spon>
-                        <span class="frequency">{{min_clean}}</span> 
+                        <!-- {{#hide_percent}} --> 
+                        <spon class="percent_value" style="visibility: hidden;">{{percent}}%</spon>
+                        <!-- {{/hide_percent}} --> 
+                        <!-- {{^hide_percent}} --> 
+                        <spon class="percent_value">{{percent}}%</spon>
+                        <!-- {{/hide_percent}} --> 
+                        <span class="frequency">{{nb_clean}}</span> 
                       </div>
                       <div class="modality_frequence_hidden">
-                        <spon class="percent_value">{{min_percent}}%</spon>
-                        <span class="frequency">{{min_clean}}</span> 
+                        <spon class="percent_value">{{percent}}%</spon>
+                        <span class="frequency">{{nb_clean}}</span> 
                       </div>
-                      <div class="percent_bar" style="width: {{min_percent}}%;"></div>
+                      <div class="percent_bar {{percent_error_bar}}" style="width: min(100%, {{percent}}%);"></div>
                     </div>
                   </td>
                 </tr>
-                <tr class="table_modalities">
-                  <td class="modality_value_wrap">
-                    <span class="modality_value">q1</span>
-                  </td>
-                  <td>
-                    <div class="modality_frequence_box">
-                      <div class="modality_frequence">
-                        <spon class="percent_value">{{quantile_25_percent}}%</spon>
-                        <span class="frequency">{{quantile_25_clean}}</span> 
-                      </div>
-                      <div class="modality_frequence_hidden">
-                        <spon class="percent_value">{{quantile_25_percent}}%</spon>
-                        <span class="frequency">{{quantile_25_clean}}</span> 
-                      </div>
-                      <div class="percent_bar" style="width: {{quantile_25_percent}}%;"></div>
-                    </div>
-                  </td>
-                </tr>
-                <tr class="table_modalities">
-                  <td class="modality_value_wrap">
-                    <span class="modality_value">médiane</span>
-                  </td>
-                  <td>
-                    <div class="modality_frequence_box">
-                      <div class="modality_frequence">
-                        <spon class="percent_value">{{median_percent}}%</spon>
-                        <span class="frequency">{{median_clean}}</span> 
-                      </div>
-                      <div class="modality_frequence_hidden">
-                        <spon class="percent_value">{{median_percent}}%</spon>
-                        <span class="frequency">{{median_clean}}</span> 
-                      </div>
-                      <div class="percent_bar" style="width: {{median_percent}}%;"></div>
-                    </div>
-                  </td>
-                </tr>
-                <tr class="table_modalities">
-                  <td class="modality_value_wrap">
-                    <span class="modality_value">q3</span>
-                  </td>
-                  <td>
-                    <div class="modality_frequence_box">
-                      <div class="modality_frequence">
-                        <spon class="percent_value">{{quantile_75_percent}}%</spon>
-                        <span class="frequency">{{quantile_75_clean}}</span> 
-                      </div>
-                      <div class="modality_frequence_hidden">
-                        <spon class="percent_value">{{quantile_75_percent}}%</spon>
-                        <span class="frequency">{{quantile_75_clean}}</span> 
-                      </div>
-                      <div class="percent_bar" style="width: {{quantile_75_percent}}%;"></div>
-                    </div>
-                  </td>
-                </tr>
-                <tr class="table_modalities">
-                  <td class="modality_value_wrap">
-                    <span class="modality_value">max</span>
-                  </td>
-                  <td>
-                    <div class="modality_frequence_box">
-                      <div class="modality_frequence">
-                        <spon class="percent_value">{{max_percent}}%</spon>
-                        <span class="frequency">{{max_clean}}</span> 
-                      </div>
-                      <div class="modality_frequence_hidden">
-                        <spon class="percent_value">{{max_percent}}%</spon>
-                        <span class="frequency">{{max_clean}}</span> 
-                      </div>
-                      <div class="percent_bar" style="width: {{max_percent}}%;"></div>
-                    </div>
-                  </td>
-                </tr>
+                <!-- {{/rows_info}} -->
               </tbody>
+              <!-- {{/table_section_2}} -->
+
               <!-- {{/is_data}} {{/type_number}} -->
 
             </table>

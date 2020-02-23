@@ -199,6 +199,82 @@ class Catalog{
       database.nb_table_clean = database.nb_table.toLocaleString()
     }
   }
+  prepare_view(){
+    for (const database of this.databases){
+      for (const table of database.tables){
+        for (const variable of table.variables){
+          variable.table_section = [
+            {
+              rows_info: [
+                {
+                  name: 'lignes', 
+                  percent: 0, 
+                  nb_clean: variable.nb_row_clean, 
+                  hide_percent: true
+                }, {
+                  name: 'manquants', 
+                  percent: variable.percent_missing, 
+                  nb_clean: variable.nb_missing_clean,
+                  percent_error_bar: 'percent_error_bar'
+                }, {
+                  name: 'distincts', 
+                  percent: variable.percent_distinct, 
+                  nb_clean: variable.nb_distinct_clean
+                }, {
+                  name: 'doublons', 
+                  percent: variable.percent_duplicate, 
+                  nb_clean: variable.nb_duplicate_clean
+                }
+              ]
+            }
+          ]
+
+          variable.table_section_2 = [
+            {
+              rows_info: [
+                {
+                  name: 'moyenne', 
+                  percent: 0, 
+                  nb_clean: variable.mean_clean, 
+                  hide_percent: true
+                }, {
+                  name: 'écart-type',
+                  percent: variable.coeff_variation,
+                  nb_clean: variable.standard_deviation_clean
+                }
+              ]
+            }, {
+              section_name: 'quantiles',
+              rows_info: [
+                {
+                  name: 'min', 
+                  percent: variable.min_percent, 
+                  nb_clean: variable.min_clean
+                }, {
+                  name: 'q1',
+                  percent: variable.quantile_25_percent,
+                  nb_clean: variable.quantile_25_clean
+                }, {
+                  name: 'médiane',
+                  percent: variable.median_percent,
+                  nb_clean: variable.median_clean
+                }, {
+                  name: 'q3',
+                  percent: variable.quantile_75_percent,
+                  nb_clean: variable.quantile_75_clean
+                }, {
+                  name: 'max',
+                  percent: variable.max_percent,
+                  nb_clean: variable.max_clean
+                }
+              ]
+            }
+          ]
+
+        }
+      }
+    }
+  }
   render(){
     const databases = []
     const db_selected = selector.boxes.db.selection
