@@ -115,89 +115,6 @@ template.catalog = `
 
               <!-- {{#table_section}} -->
               <tbody class="variable_rows_section">
-                <!-- {{#rows_info}} -->
-                <tr class="table_modalities">
-                  <td class="modality_value_wrap">
-                    <span class="modality_value">{{name}}</span>
-                  </td>
-                  <td>
-                    <div class="modality_frequence_box">
-                      <div class="modality_frequence">
-                        <!-- {{#hide_percent}} --> 
-                        <spon class="percent_value" style="visibility: hidden;">{{percent}}%</spon>
-                        <!-- {{/hide_percent}} --> 
-                        <!-- {{^hide_percent}} --> 
-                        <spon class="percent_value">{{percent}}%</spon>
-                        <!-- {{/hide_percent}} --> 
-                        <span class="frequency">{{nb_clean}}</span> 
-                      </div>
-                      <div class="modality_frequence_hidden">
-                        <spon class="percent_value">{{percent}}%</spon>
-                        <span class="frequency">{{nb_clean}}</span> 
-                      </div>
-                      <div class="percent_bar {{percent_error_bar}}" style="width: {{percent}}%;"></div>
-                    </div>
-                  </td>
-                </tr>
-                <!-- {{/rows_info}} -->
-              </tbody>
-              <!-- {{/table_section}} -->
-
-              <tbody class="variable_rows_section">
-                <tr>
-                  <td colspan="2">
-                    <div class="modalities_box_name">valeurs fréquentes</div>
-                  </td>
-                </tr>
-                  <!-- {{#modalities}} -->
-
-                    <!-- {{#visible}} -->
-                    <tr class="table_modalities">
-                    <!-- {{/visible}} -->
-                    <!-- {{^visible}} -->
-                    <tr class="table_modalities modality_hidden">
-                    <!-- {{/visible}} -->
-
-                      <td class="modality_value_wrap">
-                        <span class="modality_value">{{value}}</span>
-                      </td>
-                      <td class="modality_frequence_box_td">
-                        <div class="modality_frequence_box">
-                          <div class="modality_frequence">
-                            <spon class="percent_value">{{percent}}%</spon> <span class="frequency">{{nb}}</span> 
-                          </div>
-                          <div class="modality_frequence_hidden">
-                            <spon class="percent_value">{{percent}}%</spon> <span class="frequency">{{nb}}</span> 
-                          </div>
-                          <div class="percent_bar" style="width: min(100%, {{percent}}%);"></div>
-                        </div>
-                      </td>
-                    </tr>
-                    <!-- {{#more_modalities}} -->
-                    <tr>
-                      <td colspan="2" style="border: 0;">
-                        <button class="btn_show_more">
-                          Suite...
-                        </button>
-                      </td>
-                    </tr>
-                    <!-- {{/more_modalities}} -->
-                  <!-- {{/modalities}} -->
-                  
-                  <tr>
-                    <td colspan="2">
-                      <button class="show_less_modality">
-                        Réduire...
-                      </button>
-                    </td>
-                  </tr>
-              </tbody>
-
-              <!-- {{#type_number}} {{#is_data}} -->
-
-              <!-- {{#table_section_2}} -->
-              <tbody class="variable_rows_section">
-
                 <!-- {{#section_name}} -->
                 <tr>
                   <td colspan="2">
@@ -207,7 +124,14 @@ template.catalog = `
                 <!-- {{/section_name}} -->
 
                 <!-- {{#rows_info}} -->
+
+                <!-- {{#visible}} -->
                 <tr class="table_modalities">
+                <!-- {{/visible}} -->
+                <!-- {{^visible}} -->
+                <tr class="table_modalities modality_hidden">
+                <!-- {{/visible}} -->
+
                   <td class="modality_value_wrap">
                     <span class="modality_value">{{name}}</span>
                   </td>
@@ -230,11 +154,28 @@ template.catalog = `
                     </div>
                   </td>
                 </tr>
-                <!-- {{/rows_info}} -->
-              </tbody>
-              <!-- {{/table_section_2}} -->
 
-              <!-- {{/is_data}} {{/type_number}} -->
+                <!-- {{#more_modalities}} -->
+                  <tr>
+                    <td colspan="2" style="border: 0;">
+                      <button class="btn_show_more">
+                        Suite...
+                      </button>
+                    </td>
+                  </tr>
+                  <!-- {{/more_modalities}} -->
+
+                <!-- {{/rows_info}} -->
+                
+                <tr>
+                  <td colspan="2">
+                    <button class="show_less_modality">
+                      Réduire...
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+              <!-- {{/table_section}} -->
 
             </table>
           </div>

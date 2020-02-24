@@ -203,74 +203,98 @@ class Catalog{
     for (const database of this.databases){
       for (const table of database.tables){
         for (const variable of table.variables){
+
+          const basic_info = {
+            rows_info: [
+              {
+                name: 'lignes', 
+                percent: 0, 
+                nb_clean: variable.nb_row_clean, 
+                hide_percent: true
+              }, {
+                name: 'manquants', 
+                percent: variable.percent_missing, 
+                nb_clean: variable.nb_missing_clean,
+                percent_error_bar: 'percent_error_bar'
+              }, {
+                name: 'distincts', 
+                percent: variable.percent_distinct, 
+                nb_clean: variable.nb_distinct_clean
+              }, {
+                name: 'doublons', 
+                percent: variable.percent_duplicate, 
+                nb_clean: variable.nb_duplicate_clean
+              }
+            ]
+          }
+
+          const modalities_info = {
+            section_name: 'valeurs fréquentes',
+            rows_info: []
+          }
+          for (const modality of variable.modalities){
+            let modality_info = {
+              name: modality.value, 
+              percent: modality.percent, 
+              nb_clean: modality.nb
+            }
+            if(variable.type_number){
+              modality_info.visible = modalities_info.rows_info.length < 3
+              modality_info.more_modalities = modalities_info.rows_info.length === 3
+            }
+            modalities_info.rows_info.push(modality_info)
+          }
+
+          const mean_info = {
+            rows_info: [
+              {
+                name: 'moyenne', 
+                percent: 0, 
+                nb_clean: variable.mean_clean, 
+                hide_percent: true
+              }, {
+                name: 'écart-type',
+                percent: variable.coeff_variation,
+                nb_clean: variable.standard_deviation_clean
+              }
+            ]
+          }
+
+          const quantiles_info = {
+            section_name: 'quantiles',
+            rows_info: [
+              {
+                name: 'min', 
+                percent: variable.min_percent, 
+                nb_clean: variable.min_clean
+              }, {
+                name: 'q1',
+                percent: variable.quantile_25_percent,
+                nb_clean: variable.quantile_25_clean
+              }, {
+                name: 'médiane',
+                percent: variable.median_percent,
+                nb_clean: variable.median_clean
+              }, {
+                name: 'q3',
+                percent: variable.quantile_75_percent,
+                nb_clean: variable.quantile_75_clean
+              }, {
+                name: 'max',
+                percent: variable.max_percent,
+                nb_clean: variable.max_clean
+              }
+            ]
+          }
+
           variable.table_section = [
-            {
-              rows_info: [
-                {
-                  name: 'lignes', 
-                  percent: 0, 
-                  nb_clean: variable.nb_row_clean, 
-                  hide_percent: true
-                }, {
-                  name: 'manquants', 
-                  percent: variable.percent_missing, 
-                  nb_clean: variable.nb_missing_clean,
-                  percent_error_bar: 'percent_error_bar'
-                }, {
-                  name: 'distincts', 
-                  percent: variable.percent_distinct, 
-                  nb_clean: variable.nb_distinct_clean
-                }, {
-                  name: 'doublons', 
-                  percent: variable.percent_duplicate, 
-                  nb_clean: variable.nb_duplicate_clean
-                }
-              ]
-            }
+            basic_info,
+            modalities_info
           ]
-
-          variable.table_section_2 = [
-            {
-              rows_info: [
-                {
-                  name: 'moyenne', 
-                  percent: 0, 
-                  nb_clean: variable.mean_clean, 
-                  hide_percent: true
-                }, {
-                  name: 'écart-type',
-                  percent: variable.coeff_variation,
-                  nb_clean: variable.standard_deviation_clean
-                }
-              ]
-            }, {
-              section_name: 'quantiles',
-              rows_info: [
-                {
-                  name: 'min', 
-                  percent: variable.min_percent, 
-                  nb_clean: variable.min_clean
-                }, {
-                  name: 'q1',
-                  percent: variable.quantile_25_percent,
-                  nb_clean: variable.quantile_25_clean
-                }, {
-                  name: 'médiane',
-                  percent: variable.median_percent,
-                  nb_clean: variable.median_clean
-                }, {
-                  name: 'q3',
-                  percent: variable.quantile_75_percent,
-                  nb_clean: variable.quantile_75_clean
-                }, {
-                  name: 'max',
-                  percent: variable.max_percent,
-                  nb_clean: variable.max_clean
-                }
-              ]
-            }
-          ]
-
+          if(variable.type_number){
+            variable.table_section.push(mean_info)
+            variable.table_section.push(quantiles_info)
+          }
         }
       }
     }
@@ -383,7 +407,7 @@ class Catalog{
     $('body').on('click', '.btn_show_more', function(){
       let table_modalities = $(this).parent().parent().parent()
       table_modalities.find('.modality_hidden').show()
-      table_modalities.parent().parent().find('.show_less_modality').show()
+      table_modalities.find('.show_less_modality').show()
       $(this).hide()
     })
     $('body').on('click', '.show_less_modality', function(){

@@ -51,7 +51,7 @@ html.dark .variables_simple_listing table tr:nth-child(even)
 html.dark .percent_bar{
   background: rgba(24, 196, 8, 0.8);
 }
-html.dark .percent_bar.bar_error{
+html.dark .percent_bar.percent_error_bar{
   background: rgba(227, 95, 59, 0.4);
 }
 
