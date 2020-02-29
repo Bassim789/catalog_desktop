@@ -49,6 +49,17 @@ class Table_info(Dataframe):
       all_tables_data = io_file.concat([all_tables, self.data])
     else:
       all_tables_data = self.data
+
+    all_tables_data = all_tables_data[[
+      'db_name', 
+      'table_name',
+      'description',
+      'nb_row',
+      'nb_versions',
+      'table_file_path',
+      'table_last_modif_readable'
+    ]]
+   
     io_file.save(path, all_tables_data)
     io_file.copy_excel_to_js(path, 'all_tables')
 
