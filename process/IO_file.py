@@ -107,9 +107,10 @@ class IO_file():
     self.prepend_line(path, 'const variable_data = ')
 
   def save_to_json(self, path, dataframe):
-    data = dataframe.fillna('').to_dict('index')
+    data_dict = dataframe.fillna('').to_dict('index')
+    data = [data for data in data_dict.values()]
     with open(path, 'w') as file:
-      json.dump(data, file, default=str)
+      json.dump(data, file, default=str, indent=1)
 
   def prepend_line(self, path, line):
     with open(path, 'r+') as file:
