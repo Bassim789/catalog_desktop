@@ -1,6 +1,6 @@
 class Catalog{
   constructor(){
-    this.type_number = ['int64', 'float64']
+    this.type_number = ['int64', 'float64', 'numeric']
   }
   append_to_body(){
     $('body').append('<div id="catalog"></div>')
@@ -181,6 +181,8 @@ class Catalog{
           variable.nb_row_clean = variable.nb_row.toLocaleString()
           variable.nb_distinct_clean = variable.nb_distinct.toLocaleString()
           variable.nb_duplicate_clean = variable.nb_duplicate.toLocaleString()
+          if(!variable.type_number || variable.nb_row - variable.nb_missing === 0) continue
+            
           variable.min_clean = variable.min.toLocaleString()
           variable.quantile_25_clean = variable.quantile_25.toLocaleString()
           variable.mean_clean = variable.mean.toLocaleString()
