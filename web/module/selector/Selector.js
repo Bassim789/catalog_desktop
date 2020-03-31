@@ -19,7 +19,7 @@ class Selector{
     }
   }
   append_to_body(){
-    template.append('body', 'selector')
+    template.append('.main_container', 'selector')
     template.render('#select_search_bar', 'search_bar', {})
   }
   set_catalog_data(databases){

@@ -1,4 +1,6 @@
 
+const data = {}
+
 const template = {
   render(container, template_name, data={}){
     $(container).html(Mustache.render(this[template_name], data))
@@ -21,3 +23,8 @@ function date_time_readable(timestamp){
   duration = Timer.timestamp_to_time_ago(timestamp)
   return datetime + ' (il y a ' + duration + ')'
 }
+
+function get_time_ago(timestamp){
+  return 'il y a ' + Timer.timestamp_to_time_ago(timestamp)
+}
+

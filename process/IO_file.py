@@ -100,7 +100,7 @@ class IO_file():
   def copy_excel_to_js(self, path, name):
     path_js = path.replace('.xlsx', '.js')
     self.save_to_json(path_js, self.load(path))
-    self.prepend_line(path_js, 'const ' + name + ' = ')
+    self.prepend_line(path_js, 'data.' + name + ' = ')
 
   def save_to_js(self, path, dataframe):
     self.save_to_json(path, dataframe)

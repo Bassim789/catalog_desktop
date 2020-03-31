@@ -1,3 +1,4 @@
+from time import time
 from Database_info import Database_info
 from Table_info import Table_info
 from Versions import Versions
@@ -19,6 +20,7 @@ class Data_loader():
     self.all_databases_path = catalog_data_path + '../all/databases.xlsx'
     self.all_current_modalities_path = catalog_data_path + '../all/current_modalities.xlsx'
     self.all_correlation_path = catalog_data_path + '../all/correlation.xlsx'
+    self.main_info_path = catalog_data_path + '../all/main_info.xlsx'
 
   def set_path(self, path_name):
     log('checking', path_name)
@@ -164,4 +166,12 @@ class Data_loader():
     io_file.save(self.all_current_modalities_path, all_modalities)
     io_file.copy_excel_to_js(self.all_current_modalities_path, 'all_current_modalities')
 
+  def update_main_info(self):
+    all_info_dict = {
+      'scan_timestamp': [round(time())],
+      'other_info': ['test 1']
+    }
+    all_info = io_file.dict_to_dataframe(all_info_dict)
+    io_file.save(self.main_info_path, all_info)
+    io_file.copy_excel_to_js(self.main_info_path, 'main_info')
 

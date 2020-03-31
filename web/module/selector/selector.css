@@ -57,6 +57,7 @@
   float: left;
 }
 .search_bar_input_wrap{
+  display: none;
   margin: 10px 5px;
 }
 #search_bar_input{

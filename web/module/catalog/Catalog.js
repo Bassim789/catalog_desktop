@@ -3,7 +3,7 @@ class Catalog{
     this.type_number = ['int64', 'float64', 'numeric']
   }
   append_to_body(){
-    $('body').append('<div id="catalog"></div>')
+    $('.main_container').append('<div id="catalog"></div>')
     this.actions()
   }
   load(all_variables){
