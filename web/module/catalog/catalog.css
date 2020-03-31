@@ -99,6 +99,10 @@
   overflow: hidden;
 }
 
+.variable_main_info_section{
+  text-align: center;
+}
+
 .variables_listing_wrap{
   margin: 0;
   float: left;
