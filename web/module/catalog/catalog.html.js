@@ -150,7 +150,7 @@ template.catalog = `
                         <spon class="percent_value">{{percent}}%</spon>
                         <span class="frequency">{{nb_clean}}</span> 
                       </div>
-                      <div class="percent_bar {{percent_error_bar}}" style="width: min(100%, {{percent}}%);"></div>
+                      <div class="percent_bar {{percent_error_bar}}" style="width: {{percent}}%; max-width: 100%;"></div>
                     </div>
                   </td>
                 </tr>
