@@ -1,2 +1,2 @@
-# catalog_desktop
- catalog_desktop
+# Datadir
+ Datadir is a tool to visualise datasets metadata in a browser.
