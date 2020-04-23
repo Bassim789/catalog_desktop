@@ -16,7 +16,7 @@ template.catalog = `
     {{nb_table_clean}} tables | {{nb_variable_clean}} variables
   </div>
   <div class="database_description_wrap">
-    <div class="database_description">{{description}}</div>
+    <div class="database_description">{{{description}}}</div>
   </div>
   <div class="tables_listing">
 
@@ -43,7 +43,7 @@ template.catalog = `
         </div>
         <!-- <div class="break">{{table_file_path}}</div> -->
         <div class="table_description_wrap">
-          <div class="table_description">{{description}}</div>
+          <div class="table_description">{{{description}}}</div>
         </div>
       </div>
 
