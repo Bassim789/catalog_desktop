@@ -52,7 +52,7 @@
   float: left;
   margin: 5px;
   max-width: 100%;
-  min-height: 125px;
+  min-height: 150px;
   border-radius: 20px;
   padding: 5px;
   -webkit-box-sizing: border-box;
@@ -324,7 +324,6 @@
 .variables_simple_listing_wrap{
   margin-top: 10px;
   padding-left: 10px;
-  display: inline-block;
   max-width: 100%;
   overflow: hidden;
 }
