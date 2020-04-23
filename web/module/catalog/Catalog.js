@@ -1,6 +1,8 @@
 class Catalog{
   constructor(){
     this.type_number = ['int64', 'float64', 'numeric']
+    this.readmore_description = {}
+    this.readmore_listing = {}
   }
   append_to_body(){
     $('.main_container').append('<div id="catalog"></div>')
@@ -340,14 +342,16 @@ class Catalog{
     }
     template.render('#catalog', 'catalog', {databases})
 
-    new Readmore('.database_description, .table_description', {
+    if(this.readmore_description.elements !== undefined) this.readmore_description.destroy()
+    this.readmore_description = new Readmore('.database_description, .table_description', {
       collapsedHeight: 35,
       speed: 300,
       moreLink: '<a href="#" class="readmore_btn">Suite...</a>',
       lessLink: '<a href="#" class="readless_btn">Réduire...</a>'
     })
 
-    new Readmore('.variables_simple_listing', {
+    if(this.readmore_listing.elements !== undefined) this.readmore_listing.destroy()
+    this.readmore_listing = new Readmore('.variables_simple_listing', {
       collapsedHeight: 100,
       speed: 300,
       moreLink: '<a href="#" class="readmore_btn">Suite...</a>',

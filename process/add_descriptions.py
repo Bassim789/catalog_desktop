@@ -33,76 +33,78 @@ def add_description(path, description_path):
   print(data_type, 'description added for:', name)
 
 
+catalog_path = "/Users/bassim/Documents/code/catalog/"
+
 add_description(
-  "/Users/bassim/Documents/catalog/" + data_path + "databases/open_data/geneve/batiment/variable.xlsx",
+  catalog_path + data_path + "databases/open_data/geneve/batiment/variable.xlsx",
   "/Users/bassim/Documents/dr/data/open_data/open_data_swiss/geneve/CSV_OCS_BATLOG_SSECTEUR/variables_description.xlsx"
 )
 add_description(
-  "/Users/bassim/Documents/catalog/" + data_path + "databases/open_data/geneve/batiment/table.xlsx",
+  catalog_path + data_path + "databases/open_data/geneve/batiment/table.xlsx",
   "/Users/bassim/Documents/dr/data/open_data/open_data_swiss/geneve/CSV_OCS_BATLOG_SSECTEUR/table_description.xlsx"
 )
 
 add_description(
-  "/Users/bassim/Documents/catalog/" + data_path + "databases/open_data/geneve/accident/variable.xlsx",
+  catalog_path + data_path + "databases/open_data/geneve/accident/variable.xlsx",
   "/Users/bassim/Documents/dr/data/open_data/open_data_swiss/geneve/CSV_OTC_ACCIDENTS/variables_description.xlsx"
 )
 add_description(
-  "/Users/bassim/Documents/catalog/" + data_path + "databases/open_data/geneve/accident/table.xlsx",
+  catalog_path + data_path + "databases/open_data/geneve/accident/table.xlsx",
   "/Users/bassim/Documents/dr/data/open_data/open_data_swiss/geneve/CSV_OTC_ACCIDENTS/table_description.xlsx"
 )
 
 add_description(
-  "/Users/bassim/Documents/catalog/" + data_path + "databases/open_data/geneve/batiment_depense_chaleur/variable.xlsx",
+  catalog_path + data_path + "databases/open_data/geneve/batiment_depense_chaleur/variable.xlsx",
   "/Users/bassim/Documents/dr/data/open_data/open_data_swiss/geneve/CSV_SCANE_INDICE_DERNIER_2/variables_description.xlsx"
 )
 add_description(
-  "/Users/bassim/Documents/catalog/" + data_path + "databases/open_data/geneve/batiment_depense_chaleur/table.xlsx",
+  catalog_path + data_path + "databases/open_data/geneve/batiment_depense_chaleur/table.xlsx",
   "/Users/bassim/Documents/dr/data/open_data/open_data_swiss/geneve/CSV_SCANE_INDICE_DERNIER_2/table_description.xlsx"
 )
 
 
 add_description(
-  "/Users/bassim/Documents/catalog/" + data_path + "databases/open_data/geneve/database.xlsx",
+  catalog_path + data_path + "databases/open_data/geneve/database.xlsx",
   "/Users/bassim/Documents/dr/data/open_data/open_data_swiss/geneve/database_description.xlsx"
 )
 
 
 # own system
 add_description(
-  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/tables/variable.xlsx",
-  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/tables/variable_descriptions.xlsx"
+  catalog_path + data_path + "/databases/own_system/all/tables/variable.xlsx",
+  catalog_path + data_path + "/databases/own_system/all/tables/variable_descriptions.xlsx"
 )
 add_description(
-  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/databases/variable.xlsx",
-  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/databases/variable_descriptions.xlsx"
+  catalog_path + data_path + "/databases/own_system/all/databases/variable.xlsx",
+  catalog_path + data_path + "/databases/own_system/all/databases/variable_descriptions.xlsx"
 )
 add_description(
-  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/current_variables/variable.xlsx",
-  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/current_variables/variable_descriptions.xlsx"
+  catalog_path + data_path + "/databases/own_system/all/current_variables/variable.xlsx",
+  catalog_path + data_path + "/databases/own_system/all/current_variables/variable_descriptions.xlsx"
 )
 add_description(
-  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/current_modalities/variable.xlsx",
-  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/current_modalities/variable_descriptions.xlsx"
-)
-
-add_description(
-  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/tables/table.xlsx",
-  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/tables/table_description.xlsx"
-)
-add_description(
-  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/databases/table.xlsx",
-  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/databases/table_description.xlsx"
-)
-add_description(
-  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/current_variables/table.xlsx",
-  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/current_variables/table_description.xlsx"
-)
-add_description(
-  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/current_modalities/table.xlsx",
-  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/current_modalities/table_description.xlsx"
+  catalog_path + data_path + "/databases/own_system/all/current_modalities/variable.xlsx",
+  catalog_path + data_path + "/databases/own_system/all/current_modalities/variable_descriptions.xlsx"
 )
 
 add_description(
-  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/database.xlsx",
-  "/Users/bassim/Documents/catalog/" + data_path + "/databases/own_system/all/database_description.xlsx"
+  catalog_path + data_path + "/databases/own_system/all/tables/table.xlsx",
+  catalog_path + data_path + "/databases/own_system/all/tables/table_description.xlsx"
+)
+add_description(
+  catalog_path + data_path + "/databases/own_system/all/databases/table.xlsx",
+  catalog_path + data_path + "/databases/own_system/all/databases/table_description.xlsx"
+)
+add_description(
+  catalog_path + data_path + "/databases/own_system/all/current_variables/table.xlsx",
+  catalog_path + data_path + "/databases/own_system/all/current_variables/table_description.xlsx"
+)
+add_description(
+  catalog_path + data_path + "/databases/own_system/all/current_modalities/table.xlsx",
+  catalog_path + data_path + "/databases/own_system/all/current_modalities/table_description.xlsx"
+)
+
+add_description(
+  catalog_path + data_path + "/databases/own_system/all/database.xlsx",
+  catalog_path + data_path + "/databases/own_system/all/database_description.xlsx"
 )

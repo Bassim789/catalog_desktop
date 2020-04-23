@@ -1,55 +1,47 @@
 template.catalog = `
 
 {{#databases}}
-<div class="database_box">
 
   {{^db_selected}}
-    <div class="database_name clickable">{{db_name}}</div>
+    <div class="database_box">
+      <div class="database_name clickable">{{db_name}}</div>
   {{/db_selected}}
   {{#db_selected}}
-    <div class="database_name">{{db_name}}</div>
-    <div class="database_close_btn"><div class="close"></div></div>
+    <div class="database_box database_open">
+      <div class="database_name">{{db_name}}</div>
+      <div class="database_close_btn"><div class="close"></div></div>
   {{/db_selected}}
 
   <div class="database_info">
-    {{nb_table_clean}} tables | {{nb_variable_clean}} variables | {{nb_data_clean}} données
+    {{nb_table_clean}} tables | {{nb_variable_clean}} variables
   </div>
-  <br><br>
   <div class="database_description_wrap">
     <div class="database_description">{{description}}</div>
   </div>
   <div class="tables_listing">
 
     {{#tables}}
-    <div class="table_wrap">
-      <div class="table_box">
 
-        {{^table_selected}}
+      {{^table_selected}}
+      <div class="table_wrap">
+        <div class="table_box">
           <div class="table_name clickable">{{table_name}}</div>
-        {{/table_selected}}
-        {{#table_selected}}
+      {{/table_selected}}
+      {{#table_selected}}
+      <div class="table_wrap table_open">
+        <div class="table_box">
           <div class="table_name">{{table_name}}</div>
           <div class="table_close_btn"><div class="close"></div></div>
-        {{/table_selected}}
+      {{/table_selected}}
 
         <div class="table_info">
-          {{nb_variable_clean}} variables | {{nb_row_clean}} lignes | {{nb_data_clean}} données
+          {{nb_variable_clean}} variables | {{nb_row_clean}} lignes
         </div>
-        <br><br>
         <div class="table_file_last_modif">
           édité le {{table_last_modif_readable}}
-          <br>
-          <!--
-          <a href="{{table_file_path}}" class="table_file_link">télécharger</a>
-          -->
-          <br>
+          <!-- <a href="{{table_file_path}}" class="table_file_link">télécharger</a> -->
         </div>
-        <br><br>
-        <!--
-        <div class="break">
-          {{table_file_path}}
-        </div>
-        -->
+        <!-- <div class="break">{{table_file_path}}</div> -->
         <div class="table_description_wrap">
           <div class="table_description">{{description}}</div>
         </div>

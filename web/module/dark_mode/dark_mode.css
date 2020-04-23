@@ -13,6 +13,12 @@ body,
   transition: .4s;
 }
 
+.database_box{
+  background: #ddd;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
 .chosen-container-single,
 .chosen-container-single .chosen-single{
   color: #666;
@@ -28,6 +34,9 @@ body,
 html.dark,
 html.dark body{
   color: #ccc;
+  background: #000;
+}
+html.dark .database_box{
   background: #111;
 }
 html.dark .table_wrap,
