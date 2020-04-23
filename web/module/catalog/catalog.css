@@ -322,6 +322,7 @@
 }
 
 .variables_simple_listing_wrap{
+  margin-top: 10px;
   padding-left: 10px;
   display: inline-block;
   max-width: 100%;

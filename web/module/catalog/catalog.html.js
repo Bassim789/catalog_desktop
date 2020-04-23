@@ -48,7 +48,6 @@ template.catalog = `
       </div>
 
       <!-- {{#show_table_index}} -->
-      <br><br>
       <div class="variables_simple_listing_wrap">
         <div class="variables_simple_listing">
           <table>
@@ -73,7 +72,6 @@ template.catalog = `
       </div>
       <!-- {{/show_table_index}} -->
 
-      <br><br>
       <div class="variables_listing_wrap">
           
         <div class="variables_listing">
