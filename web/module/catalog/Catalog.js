@@ -352,7 +352,7 @@ class Catalog{
 
     if(this.readmore_listing.elements !== undefined) this.readmore_listing.destroy()
     this.readmore_listing = new Readmore('.variables_simple_listing', {
-      collapsedHeight: 100,
+      collapsedHeight: 75,
       speed: 300,
       moreLink: '<a href="#" class="readmore_btn">Suite...</a>',
       lessLink: '<a href="#" class="readless_btn">Réduire...</a>'
