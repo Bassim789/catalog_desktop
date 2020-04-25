@@ -1,7 +1,6 @@
 
 #catalog{
   display: inline-block;
-  margin-top: 50px;
 }
 
 .catalog_description_wrap{
@@ -392,8 +391,6 @@ html.dark .little_icon{
 
 @media screen and (max-width: 880px) {
   #catalog{
-    margin: 5px;
-    margin-top: 40px;
     padding-bottom: 20px;
     max-width: calc(100% - 10px);
   }
@@ -442,7 +439,6 @@ html.dark .little_icon{
 @media screen and (max-width: 600px) {
   #catalog{
     margin: 0px;
-    margin-top: 40px;
     max-width: 100%;
   }
   .database_box{

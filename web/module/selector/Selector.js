@@ -19,6 +19,7 @@ class Selector{
     }
   }
   append_to_body(){
+    if(is_mobile_device()) return false
     template.append('.main_container', 'selector')
     template.render('#select_search_bar', 'search_bar', {})
   }

@@ -28,3 +28,7 @@ function get_time_ago(timestamp){
   return 'il y a ' + Timer.timestamp_to_time_ago(timestamp)
 }
 
+function is_mobile_device() {
+    return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+};
+

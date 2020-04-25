@@ -72,14 +72,15 @@
 
 #selection_boxes_space_shadow{
   width: 100%;
-  height: 0px;
+  height: 40px;
 }
-@media screen and (max-width: 880px) {
+@media screen and (max-width: 650px) {
   #selection_boxes_space_shadow{
-    height: 50px;
+    height: 85px;
   }
-  #selection_boxes_space_shadow,
-  #selection_boxes_wrapper{
-    display: none;
+}
+@media screen and (max-width: 440px) {
+  #selection_boxes_space_shadow{
+    height: 135px;
   }
 }
