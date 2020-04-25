@@ -478,6 +478,11 @@ html.dark .little_icon{
   .table_description_wrap{
     max-width: 100%;
   }
+  .catalog_description,
+  .database_description,
+  .table_description{
+    text-align: left;
+  }
 }
 
 

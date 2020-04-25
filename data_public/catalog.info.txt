@@ -1,0 +1,2 @@
+Datadir est un catalogue de métadonnées facilitant l'expérimentation de l'Open Metadata.
+La démo actuelle décrit des jeux de données Open Data mais l'intéret majeur de l'Open Metadata est de pouvoir décrire également des données personnelles ou sensibles ne pouvant pas être ouvertes pour des raisons de protection des données.
