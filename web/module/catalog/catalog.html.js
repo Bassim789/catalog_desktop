@@ -1,5 +1,9 @@
 template.catalog = `
 
+<div class="catalog_description_wrap">
+  <div class="catalog_description">{{{catalog_description}}}</div>
+</div>
+
 {{#databases}}
 
   {{^db_selected}}

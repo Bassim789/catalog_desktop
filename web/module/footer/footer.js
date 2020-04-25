@@ -1,7 +1,6 @@
 class Footer{
   constructor(){}
   add_data(data){
-    console.log(data)
     this.scan_time_ago = get_time_ago(data.scan_timestamp)
     this.scan_duration = data.scan_duration
   }

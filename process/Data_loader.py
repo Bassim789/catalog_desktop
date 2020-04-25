@@ -21,6 +21,7 @@ class Data_loader():
     self.all_current_modalities_path = catalog_data_path + '../all/current_modalities.xlsx'
     self.all_correlation_path = catalog_data_path + '../all/correlation.xlsx'
     self.main_info_path = catalog_data_path + '../all/main_info.xlsx'
+    self.catalog_description_path = catalog_data_path + '../catalog.info.txt'
 
   def set_path(self, path_name):
     log('checking', path_name)
@@ -167,11 +168,13 @@ class Data_loader():
     io_file.copy_excel_to_js(self.all_current_modalities_path, 'all_current_modalities')
 
   def update_main_info(self):
-    all_info_dict = {
+    with open(self.catalog_description_path, 'r') as f:
+      catalog_description = f.read()
+    main_info_dict = {
       'scan_timestamp': [round(time())],
-      'other_info': ['test 1']
+      'catalog_description': [catalog_description]
     }
-    all_info = io_file.dict_to_dataframe(all_info_dict)
-    io_file.save(self.main_info_path, all_info)
+    main_info = io_file.dict_to_dataframe(main_info_dict)
+    io_file.save(self.main_info_path, main_info)
     io_file.copy_excel_to_js(self.main_info_path, 'main_info')
 

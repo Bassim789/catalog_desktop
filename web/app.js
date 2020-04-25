@@ -9,6 +9,7 @@ selector.append_to_body()
 catalog.append_to_body()
 
 catalog.load(data.all_current_variables)
+catalog.add_main_info(data.main_info[0])
 catalog.add_tables_data(data.all_tables)
 catalog.add_databases_data(data.all_databases)
 catalog.set_variables()

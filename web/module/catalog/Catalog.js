@@ -36,6 +36,9 @@ class Catalog{
     }
     this.databases = databases
   }
+  add_main_info(main_info){
+    this.catalog_description = main_info.catalog_description
+  }
   add_tables_data(all_tables){
     for (const database of this.databases){
       for (const table of database.tables){
@@ -184,7 +187,7 @@ class Catalog{
           variable.nb_distinct_clean = variable.nb_distinct.toLocaleString()
           variable.nb_duplicate_clean = variable.nb_duplicate.toLocaleString()
           if(!variable.type_number || variable.nb_row - variable.nb_missing === 0) continue
-            
+          
           variable.min_clean = variable.min.toLocaleString()
           variable.quantile_25_clean = variable.quantile_25.toLocaleString()
           variable.mean_clean = variable.mean.toLocaleString()
@@ -208,7 +211,7 @@ class Catalog{
       for (const table of database.tables){
         for (const variable of table.variables){
 
-          const basic_info = {
+          variable.table_section = [{
             rows_info: [
               {
                 name: 'lignes', 
@@ -230,7 +233,9 @@ class Catalog{
                 nb_clean: variable.nb_duplicate_clean
               }
             ]
-          }
+          }]
+
+          if(variable.nb_row - variable.nb_missing === 0) continue
 
           const modalities_info = {
             section_name: 'valeurs fréquentes',
@@ -248,8 +253,12 @@ class Catalog{
             }
             modalities_info.rows_info.push(modality_info)
           }
+          variable.table_section.push(modalities_info)
 
-          const mean_info = {
+
+          if(!variable.type_number || variable.nb_distinct < 2) continue
+
+          variable.table_section.push({
             rows_info: [
               {
                 name: 'moyenne', 
@@ -262,14 +271,14 @@ class Catalog{
                 nb_clean: variable.standard_deviation_clean
               }
             ]
-          }
-
-          const quantiles_info = {
+          })
+         
+          variable.table_section.push({
             section_name: 'quantiles',
             rows_info: [
               {
                 name: 'min', 
-                percent: variable.min_percent, 
+                percent: variable.min_percent,
                 nb_clean: variable.min_clean
               }, {
                 name: 'q1',
@@ -289,16 +298,7 @@ class Catalog{
                 nb_clean: variable.max_clean
               }
             ]
-          }
-
-          variable.table_section = [
-            basic_info,
-            modalities_info
-          ]
-          if(variable.type_number){
-            variable.table_section.push(mean_info)
-            variable.table_section.push(quantiles_info)
-          }
+          })
         }
       }
     }
@@ -340,10 +340,13 @@ class Catalog{
       }
       databases.push(db_copy)
     }
-    template.render('#catalog', 'catalog', {databases})
+    template.render('#catalog', 'catalog', {
+      catalog_description: this.catalog_description,
+      databases
+    })
 
     if(this.readmore_description.elements !== undefined) this.readmore_description.destroy()
-    this.readmore_description = new Readmore('.database_description, .table_description', {
+    this.readmore_description = new Readmore('.catalog_description, .database_description, .table_description', {
       collapsedHeight: 35,
       speed: 300,
       moreLink: '<a href="#" class="readmore_btn">Suite...</a>',

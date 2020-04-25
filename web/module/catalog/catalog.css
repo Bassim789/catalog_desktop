@@ -4,6 +4,17 @@
   margin-top: 50px;
 }
 
+.catalog_description_wrap{
+  max-width: 600px;
+}
+.catalog_description{
+  max-width: calc(100% - 20px);
+  margin: 5px; 
+  white-space: pre-wrap;
+  overflow: hidden;
+  text-align: justify;
+}
+
 .database_box{
   position: relative;
   display: inline-block;
@@ -33,6 +44,7 @@
 }
 .database_open .database_description_wrap{
   max-width: 600px;
+  text-align: justify;
 }
 .database_description{
   max-width: calc(100% - 20px);
@@ -83,6 +95,7 @@
 }
 .table_open .table_description_wrap{
   max-width: 600px;
+  text-align: justify;
 }
 .table_description{
   max-width: calc(100% - 20px);
