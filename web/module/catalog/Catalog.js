@@ -360,6 +360,8 @@ class Catalog{
       moreLink: '<a href="#" class="readmore_btn">Suite...</a>',
       lessLink: '<a href="#" class="readless_btn">Réduire...</a>'
     })
+
+    $(document).tooltip()
   }
   actions(){
     $('body').on('click', '.database_box .database_name.clickable', function() {

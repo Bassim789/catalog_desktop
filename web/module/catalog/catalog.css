@@ -407,33 +407,6 @@ html.dark .little_icon{
     width: auto;
     max-width: calc(100% - 10px);
   }
-  .table_modalities .modality_frequence_box_td{
-    width: 120px;
-  }
-  .table_modalities .modality_value{
-    max-width: 120px;
-  }
-  .variable_table{
-    max-width: 100%;
-  }
-  .variable_table td.variable_description{
-    max-width: 100%;
-  }
-  .modality_frequence_box{
-    width: 170px;
-  }
-  .table_modalities .modality_value_wrap{
-    max-width: 110px;
-  }
-  .table_box{
-    padding-left: 0px;
-  }
-  /*.variables_simple_listing_wrap{
-    max-width: 100%;
-  }
-  .variables_simple_listing{
-    max-width: 100%;
-  }*/
 }
 
 @media screen and (max-width: 600px) {

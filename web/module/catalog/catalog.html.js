@@ -17,8 +17,12 @@ template.catalog = `
   {{/db_selected}}
 
   <div class="database_info">
-    {{nb_table_clean}} <div class="table_icon little_icon" title="table"></div> | 
-    {{nb_variable_clean}} <div class="variable_icon little_icon" title="variable"></div> 
+    <span title="nombre de table dans le dossier">
+      {{nb_table_clean}} <div class="table_icon little_icon"></div>
+    </span> | 
+    <span title="nombre de variable dans le dossier">
+      {{nb_variable_clean}} <div class="variable_icon little_icon"></div>
+    </span>
   </div>
   <div class="database_description_wrap">
     <div class="database_description">{{{description}}}</div>
@@ -40,12 +44,17 @@ template.catalog = `
       {{/table_selected}}
 
         <div class="table_info">
-          {{nb_variable_clean}} <div class="variable_icon little_icon" title="variable"></div> | 
-          {{nb_row_clean}} <div class="row_icon little_icon" title="ligne"></div>
+          <span title="nombre de variable dans la table">
+            {{nb_variable_clean}} <div class="variable_icon little_icon"></div> 
+          </span> | 
+          <span title="nombre de ligne dans la table">
+            {{nb_row_clean}} <div class="row_icon little_icon"></div>
+          </span>
         </div>
         <div class="table_file_last_modif">
-          {{table_last_modif_readable}}
-          <!-- <a href="{{table_file_path}}" class="table_file_link">télécharger</a> -->
+          <span title="Date de la dernière modification">
+            {{table_last_modif_readable}}
+          </span>
         </div>
         <!-- <div class="break">{{table_file_path}}</div> -->
         <div class="table_description_wrap">
