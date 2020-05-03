@@ -24,4 +24,4 @@ class Database_info(Dataframe):
     else:
       all_databases_data = self.data
     io_file.save(path, all_databases_data)
-    io_file.copy_excel_to_js(path, 'all_databases')
+    io_file.copy_excel_to_js(path, 'databases')

@@ -37,7 +37,7 @@ class Table_info(Dataframe):
     all_current = io_file.load(all_current_variables_path)
     all_current.loc[(all_current['table'] == old_db_table_name), 'table'] = new_db_table_name
     io_file.save(all_current_variables_path, all_current)
-    io_file.copy_excel_to_js(all_current_variables_path, 'all_current_variables')
+    io_file.copy_excel_to_js(all_current_variables_path, 'current_variables')
     log('update_table_and_db_name', old_db_table_name, '=>', new_db_table_name)
 
   def save_to_all_tables(self, path):
@@ -61,7 +61,7 @@ class Table_info(Dataframe):
     ]]
    
     io_file.save(path, all_tables_data)
-    io_file.copy_excel_to_js(path, 'all_tables')
+    io_file.copy_excel_to_js(path, 'tables')
 
   def add_nb_row(self, nb_row):
     self.data['nb_row'] = nb_row

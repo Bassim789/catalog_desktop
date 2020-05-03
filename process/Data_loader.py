@@ -150,7 +150,7 @@ class Data_loader():
     else:
       all_vars = current_variables
     io_file.save(self.all_current_variables_path, all_vars)
-    io_file.copy_excel_to_js(self.all_current_variables_path, 'all_current_variables')
+    io_file.copy_excel_to_js(self.all_current_variables_path, 'current_variables')
 
   def update_main_modality(self):
     log('updating modality of', self.path_name)
@@ -165,7 +165,7 @@ class Data_loader():
     else:
       all_modalities = current_modalities
     io_file.save(self.all_current_modalities_path, all_modalities)
-    io_file.copy_excel_to_js(self.all_current_modalities_path, 'all_current_modalities')
+    io_file.copy_excel_to_js(self.all_current_modalities_path, 'current_modalities')
 
   def update_main_info(self):
     with open(self.catalog_description_path, 'r') as f:
