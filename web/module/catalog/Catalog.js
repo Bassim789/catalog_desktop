@@ -41,6 +41,13 @@ class Catalog{
   }
   add_tables_data(all_tables){
     for (const database of this.databases){
+      database.tables = database.tables.sort((obj_a, obj_b) => {
+        const a = obj_a.table_name.toUpperCase()
+        const b = obj_b.table_name.toUpperCase()
+        if (a > b) return 1
+        else if (a < b) return -1;
+        return 0
+      })
       for (const table of database.tables){
         for(const table_data of Object.values(all_tables)){
           if( table_data.db_name != database.db_name 
@@ -54,6 +61,13 @@ class Catalog{
     }
   }
   add_databases_data(all_databases){
+    this.databases = this.databases.sort((obj_a, obj_b) => {
+      const a = obj_a.db_name.toUpperCase()
+      const b = obj_b.db_name.toUpperCase()
+      if (a > b) return 1
+      else if (a < b) return -1;
+      return 0
+    })
     for (const database of this.databases){
       for(const database_data of Object.values(all_databases)){
         if(database_data.db_name != database.db_name) continue
