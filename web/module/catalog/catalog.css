@@ -103,6 +103,16 @@
   white-space: pre-wrap;
   overflow: hidden;
 }
+.table_file_path_wrap{
+  padding-left: 5px;
+  overflow-wrap: break-word;
+}
+.table_file_path_wrap a{
+  text-decoration: none;
+}
+.table_file_path_wrap a:hover{
+  text-decoration: underline;
+}
 
 .variable_main_info_section{
   text-align: center;

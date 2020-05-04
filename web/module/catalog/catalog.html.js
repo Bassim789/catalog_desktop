@@ -56,7 +56,11 @@ template.catalog = `
             {{table_last_modif_readable}}
           </span>
         </div>
-        <!-- <div class="break">{{table_file_path}}</div> -->
+        {{#table_selected}}{{#table_file_path}}
+        <div class="table_file_path_wrap">
+          <a href="{{table_file_path}}" class="table_file_path">{{table_file_path}}</a>
+        </div>
+        {{/table_file_path}}{{/table_selected}}
         <div class="table_description_wrap">
           <div class="table_description">{{{description}}}</div>
         </div>
