@@ -225,29 +225,40 @@ class Catalog{
       for (const table of database.tables){
         for (const variable of table.variables){
 
-          variable.table_section = [{
-            rows_info: [
-              {
-                name: 'lignes', 
-                percent: 0, 
-                nb_clean: variable.nb_row_clean, 
-                hide_percent: true
-              }, {
-                name: 'manquants', 
-                percent: variable.percent_missing, 
-                nb_clean: variable.nb_missing_clean,
-                percent_error_bar: 'percent_error_bar'
-              }, {
-                name: 'distincts', 
-                percent: variable.percent_distinct, 
-                nb_clean: variable.nb_distinct_clean
-              }, {
-                name: 'doublons', 
-                percent: variable.percent_duplicate, 
-                nb_clean: variable.nb_duplicate_clean
-              }
-            ]
-          }]
+          variable.table_section = [{rows_info: []}]
+
+          variable.table_section[0].rows_info.push({
+            name: 'lignes', 
+            percent: 0, 
+            nb_clean: variable.nb_row_clean, 
+            hide_percent: true
+          })
+
+          if(!(variable.nb_missing_clean === 0 || variable.nb_missing_clean === '0')){
+            variable.table_section[0].rows_info.push({
+              name: 'manquants', 
+              percent: variable.percent_missing, 
+              nb_clean: variable.nb_missing_clean,
+              percent_error_bar: 'percent_error_bar'
+            })
+          }
+          
+          if(!(variable.nb_distinct_clean === 0 || variable.nb_distinct_clean === '0')){
+            variable.table_section[0].rows_info.push({
+              name: 'distincts', 
+              percent: variable.percent_distinct, 
+              nb_clean: variable.nb_distinct_clean
+            })
+          } else {
+            console.log(variable.nb_distinct_clean)
+          }
+          if(!(variable.nb_duplicate_clean === 0 || variable.nb_duplicate_clean === '0')){
+            variable.table_section[0].rows_info.push({
+              name: 'doublons', 
+              percent: variable.percent_duplicate, 
+              nb_clean: variable.nb_duplicate_clean
+            })
+          }
 
           if(variable.nb_row - variable.nb_missing === 0) continue
 
